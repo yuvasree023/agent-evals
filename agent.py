@@ -55,7 +55,7 @@ SYSTEM = (
 )
 
 
-def run_task(task, provider, model, max_steps=8, cache_dir=".cache/llm"):
+def run_task(task, provider, model, max_steps=8, cache_dir=".cache/llm", use_cache=True):
     env = Store(task["fixture"])
     policy = env.call("get_policy")["policy"]
     messages = [
@@ -66,7 +66,7 @@ def run_task(task, provider, model, max_steps=8, cache_dir=".cache/llm"):
     while steps < max_steps:
         steps += 1
         result = providers.chat(provider, model, messages, TOOL_SCHEMAS,
-                                cache_dir=cache_dir)
+                                cache_dir=cache_dir, use_cache=use_cache)
         assistant = {"role": "assistant", "content": result["content"],
                      "tool_calls": result["tool_calls"], "raw": result["raw"]}
         messages.append(assistant)
