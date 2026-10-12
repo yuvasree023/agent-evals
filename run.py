@@ -86,7 +86,11 @@ def run_live(selected, args, config):
     environment per trial). flip_check runs every task twice with the
     response cache bypassed, because cached responses cannot measure
     model noise (docs/method.md M1)."""
-    import agent
+    version = getattr(args, "agent_version", "v1")
+    if version == "v2":
+        import agent_v2 as agent
+    else:
+        import agent
     import providers
     if args.split != "dev":
         raise RuntimeError(
@@ -115,7 +119,7 @@ def run_live(selected, args, config):
                 answer, env, messages = agent.run_task(
                     task, args.agent, args.model,
                     max_steps=config["max_steps"],
-                    cache_dir=str(Path(args.cache_dir) / task["id"] / str(trial)),
+                    cache_dir=str(Path(args.cache_dir) / version / task["id"] / str(trial)),
                     use_cache=use_cache)
                 checks = grade(task["expected"], task_state(task), env.state(), answer, env.trace)
                 layers = grade_layers(env.trace, answer, config["max_steps"], provider=args.agent)
@@ -126,7 +130,7 @@ def run_live(selected, args, config):
                     layers=layers,
                     messages=_strip(messages),
                     latency_ms=(time.perf_counter()-start)*1000, cost_usd=0,
-                    agent=f"{args.agent}:{args.model}", error=None))
+                    agent=f"{args.agent}:{args.model} agent-{version}", error=None))
                 env.db.close()
             except providers.ProviderError as exc:
                 records.append(dict(task_id=task["id"], split=task["split"],
@@ -134,7 +138,7 @@ def run_live(selected, args, config):
                     input=task["input"], answer=None, trace=[], graders=None,
                     passed=None, error=str(exc),
                     latency_ms=(time.perf_counter()-start)*1000, cost_usd=0,
-                    agent=f"{args.agent}:{args.model}"))
+                    agent=f"{args.agent}:{args.model} agent-{version}"))
                 quota_stop = isinstance(exc, providers.DailyQuotaExhausted)
             if checkpoint:
                 checkpoint.parent.mkdir(parents=True, exist_ok=True)
@@ -188,6 +192,8 @@ def main():
                         help="independent trials per task (M1: use >=4)")
     parser.add_argument("--flip-check", action="store_true",
                         help="run twice uncached and report verdict flips")
+    parser.add_argument("--agent-version", choices=["v1","v2"], default="v1",
+                        help="v1: original loop; v2: confirmation-gated writes (agent_v2.py)")
     args=parser.parse_args(); tasks=load_tasks(); validate(tasks)
     if args.validate:
         print("Validated 50 tasks: 35 dev / 15 frozen holdout; expectations remain draft."); return
@@ -201,7 +207,7 @@ def main():
     if args.limit:
         selected=selected[:args.limit]
     out=ROOT/"results/local"; out.mkdir(parents=True,exist_ok=True)
-    suffix = f"{args.split}-{args.agent}" + ("-flip" if args.flip_check else "-m1")
+    suffix = f"{args.split}-{args.agent}-{args.agent_version}" + ("-flip" if args.flip_check else "-m1")
     args.checkpoint = out / (suffix + "-checkpoint.jsonl")
     if args.agent == "offline":
         records=[]
@@ -220,7 +226,7 @@ def main():
     summary=dict(
         mode=("offline plumbing smoke, not LLM performance" if args.agent=="offline"
               else "live model smoke on draft dev expectations, not a benchmark"),
-        split=args.split, agent=args.agent if args.agent=="offline" else f"{args.agent}:{args.model or ''}",
+        split=args.split, agent=args.agent if args.agent=="offline" else f"{args.agent}:{args.model or ''} agent-{args.agent_version}",
         tasks=len(records), graded=len(graded), passed=passed,
         success_rate=(passed/len(graded)) if graded else None,
         trials=args.trials if args.agent != "offline" else 1,
