@@ -1,0 +1,10 @@
+{
+  "agent": "offline-rules-v0",
+  "dataset": "0.1-draft",
+  "policy": "0.1",
+  "max_steps": 8,
+  "trials": 1,
+  "api_enabled": false,
+  "spend_cap_usd": 0,
+  "model": null
+}
