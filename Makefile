@@ -8,3 +8,5 @@ eval:
 	$(PYTHON) run.py --split all
 dev:
 	$(PYTHON) run.py --split dev
+online-demo:
+	$(PYTHON) online_eval.py --scenario drift
