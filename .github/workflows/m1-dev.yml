@@ -42,6 +42,15 @@ jobs:
         run: |
           python3 -m unittest discover -s tests
           python3 run.py --validate
+      - name: Restore resumable trials
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .cache/llm/
+            results/local/
+          key: m1-v2-${{ inputs.agent }}-${{ inputs.trials }}-${{ inputs.limit }}-${{ hashFiles('*.py', 'policy.md', 'config.json', 'evals/tasks.jsonl') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            m1-v2-${{ inputs.agent }}-${{ inputs.trials }}-${{ inputs.limit }}-${{ hashFiles('*.py', 'policy.md', 'config.json', 'evals/tasks.jsonl') }}-
       - name: M1 dev trials
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -49,7 +58,7 @@ jobs:
         run: >-
           python3 run.py --split dev
           --agent ${{ inputs.agent }}
-          --trials ${{ inputs.trials }}
+          --resume --trials ${{ inputs.trials }}
           --limit ${{ inputs.limit }}
       - name: Flip check (optional, uncached)
         if: ${{ inputs.flip_check }}
@@ -60,8 +69,17 @@ jobs:
           python3 run.py --split dev
           --agent ${{ inputs.agent }}
           --limit ${{ inputs.limit }}
-          --flip-check
+          --resume --flip-check
+      - name: Save resumable trials
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .cache/llm/
+            results/local/
+          key: m1-v2-${{ inputs.agent }}-${{ inputs.trials }}-${{ inputs.limit }}-${{ hashFiles('*.py', 'policy.md', 'config.json', 'evals/tasks.jsonl') }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload traces and reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: m1-${{ inputs.agent }}-traces
