@@ -125,3 +125,36 @@ class ProviderTests(unittest.TestCase):
         import run
         with self.assertRaises(RuntimeError):
             run.run_live([],type("A",(),{"split":"holdout","agent":"groq","model":"openai/gpt-oss-120b","cache_dir":"/tmp/c"})(),{"max_steps":8})
+
+class LayersAndTrialsTests(unittest.TestCase):
+    def test_layers_clean_trace(self):
+        import run
+        s=Store({"customer":"C1","orders":[{"id":"O1000","customer":"C1","status":"delivered","total":10000,"refunded":0,"days":10,"address":"10 Sample Road"}]})
+        s.call("lookup_order",order_id="O1000")
+        s.call("refund_order",order_id="O1000",amount=100,confirmed=True)
+        layers=run.grade_layers(s.trace,"done",8)
+        self.assertTrue(layers["schema_ok"])
+        self.assertEqual(layers["mutation_without_lookup"],0)
+        self.assertEqual(layers["repeated_calls"],0)
+    def test_layers_flag_unknown_and_loops(self):
+        import run
+        s=Store({"customer":"C1","orders":[{"id":"O1000","customer":"C1","status":"delivered","total":10000,"refunded":0,"days":10,"address":"10 Sample Road"}]})
+        s.call("nonsense_tool")
+        s.call("lookup_order",order_id="O1000")
+        s.call("lookup_order",order_id="O1000")
+        layers=run.grade_layers(s.trace,"",8)
+        self.assertFalse(layers["schema_ok"])
+        self.assertEqual(layers["repeated_calls"],1)
+    def test_flip_summary(self):
+        import run
+        recs=[{"task_id":"T1","trial":1,"passed":True},{"task_id":"T1","trial":2,"passed":False},
+              {"task_id":"T2","trial":1,"passed":True},{"task_id":"T2","trial":2,"passed":True},
+              {"task_id":"T3","trial":1,"passed":None,"error":"x"},{"task_id":"T3","trial":2,"passed":True}]
+        s=run.flip_summary(recs)
+        self.assertEqual(s["comparable_tasks"],2)
+        self.assertEqual(s["flipped_tasks"],["T1"])
+        self.assertEqual(s["flip_rate"],0.5)
+    def test_live_requires_dev(self):
+        import run
+        with self.assertRaises(RuntimeError):
+            run.run_live([],type("A",(),{"split":"all","agent":"groq","model":"m","cache_dir":"/tmp/c","flip_check":False,"trials":1,"no_cache":False})(),{"max_steps":8})
