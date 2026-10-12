@@ -53,3 +53,75 @@ class ProjectTests(unittest.TestCase):
         self.assertFalse(grade({"unchanged":True,"state":[],"response_any":[]},before,after,"",[])["policy_smoke"])
 
 if __name__=="__main__": unittest.main()
+
+import json, os
+from unittest import mock
+import providers
+
+class ProviderTests(unittest.TestCase):
+    def setUp(self):
+        os.environ.pop("GROQ_API_KEY", None)
+        os.environ.pop("GEMINI_API_KEY", None)
+    def messages(self):
+        return [{"role":"user","content":"status of O1001?"}]
+    def tools(self):
+        return [{"name":"lookup_order","description":"Look up one order",
+                 "parameters":{"type":"object","properties":{"order_id":{"type":"string"}},"required":["order_id"]}}]
+    def test_missing_key_refused(self):
+        with self.assertRaises(providers.ProviderError):
+            providers.chat("groq","openai/gpt-oss-120b",self.messages(),self.tools())
+    def test_non_free_model_refused(self):
+        os.environ["GROQ_API_KEY"]="test"
+        with self.assertRaises(providers.ProviderError):
+            providers.chat("groq","llama3-70b-8192",self.messages(),self.tools())
+    def test_cache_deterministic_and_key_mixed(self):
+        p1=providers._cache_path("/tmp/c","groq","m",{"a":1},"key-one")
+        p2=providers._cache_path("/tmp/c","groq","m",{"a":1},"key-one")
+        p3=providers._cache_path("/tmp/c","groq","m",{"a":1},"key-two")
+        self.assertEqual(p1,p2)
+        self.assertNotEqual(p1,p3)
+    def test_groq_parse_tool_call(self):
+        _,_,payload,parse=providers._groq_request("openai/gpt-oss-120b",self.messages(),self.tools(),"k")
+        self.assertEqual(payload["tools"][0]["function"]["name"],"lookup_order")
+        fake={"choices":[{"message":{"content":None,"tool_calls":[{"id":"c1","type":"function","function":{"name":"lookup_order","arguments":"{\"order_id\": \"O1001\"}"}}]}}],"usage":{"total_tokens":10}}
+        out=parse(fake)
+        self.assertEqual(out["tool_calls"][0]["arguments"],{"order_id":"O1001"})
+    def test_gemini_parse_tool_call_and_raw_replay(self):
+        _,_,payload,parse=providers._gemini_request("gemini-3.5-flash-lite",self.messages(),self.tools(),"k")
+        decl=payload["tools"][0]["functionDeclarations"][0]
+        self.assertEqual(decl["name"],"lookup_order")
+        raw={"role":"model","parts":[{"functionCall":{"name":"lookup_order","args":{"order_id":"O1001"},"id":"call_1"},"thoughtSignature":"sig"}]}
+        out=parse({"candidates":[{"content":raw}],"usageMetadata":{"totalTokenCount":5}})
+        self.assertEqual(out["tool_calls"][0]["name"],"lookup_order")
+        replay=providers._gemini_content({"role":"assistant","content":"","tool_calls":out["tool_calls"],"raw":out["raw"]})
+        self.assertEqual(replay["parts"][0]["thoughtSignature"],"sig")
+    def test_gemini_tool_response_shape(self):
+        m=providers._gemini_content({"role":"tool","tool_call_id":"call_1","name":"lookup_order","content":"{\"order\": {}}"})
+        part=m["parts"][0]["functionResponse"]
+        self.assertEqual(part["name"],"lookup_order")
+        self.assertEqual(part["id"],"call_1")
+    def test_retry_after_honored(self):
+        os.environ["GROQ_API_KEY"]="test"
+        err=urllib_error=__import__("urllib.error",fromlist=["HTTPError"]).HTTPError
+        e=err("https://x",429,"rate",hdrs=__import__("email").message_from_string("retry-after: 0\r\n\r\n"),fp=open("/dev/null","rb"))
+        good=mock.MagicMock(); good.status=200; good.headers={}
+        good.read.return_value=json.dumps({"choices":[{"message":{"content":"ok","tool_calls":[]}}],"usage":{}}).encode()
+        good.__enter__.return_value=good
+        providers._last_call.clear()
+        with mock.patch("urllib.request.urlopen",side_effect=[e,good]):
+            with mock.patch("time.sleep") as s:
+                out=providers.chat("groq","openai/gpt-oss-120b",self.messages(),self.tools(),cache_dir="/tmp/c-test",use_cache=False)
+        self.assertEqual(out["content"],"ok")
+        self.assertIn(mock.call(0.0),s.call_args_list)
+    def test_rpd_zero_raises_quota(self):
+        os.environ["GROQ_API_KEY"]="test"
+        err=__import__("urllib.error",fromlist=["HTTPError"]).HTTPError
+        e=err("https://x",429,"rate",hdrs=__import__("email").message_from_string("x-ratelimit-remaining-requests: 0\r\n\r\n"),fp=open("/dev/null","rb"))
+        providers._last_call.clear()
+        with mock.patch("urllib.request.urlopen",side_effect=e):
+            with self.assertRaises(providers.DailyQuotaExhausted):
+                providers.chat("groq","openai/gpt-oss-120b",self.messages(),self.tools(),cache_dir="/tmp/c-test",use_cache=False)
+    def test_holdout_blocked_for_model_agents(self):
+        import run
+        with self.assertRaises(RuntimeError):
+            run.run_live([],type("A",(),{"split":"holdout","agent":"groq","model":"openai/gpt-oss-120b","cache_dir":"/tmp/c"})(),{"max_steps":8})
