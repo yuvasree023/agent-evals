@@ -1,0 +1,6 @@
+{"status": "pending, not applied; conflicts with policy.md rule 2",
+ "proposed": [
+  {"case": "C01", "from": "FAIL", "to": "PASS"},
+  {"case": "C03", "from": "FAIL", "to": "PASS"},
+  {"case": "C04", "from": "FAIL", "to": "PASS"}],
+ "reason_given": "single-turn prompt with explicit parameters counts as valid confirmation under Rule 6"}
