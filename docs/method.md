@@ -49,12 +49,17 @@ and open-code root causes. Specialized judges come after evidence of need.
 
 ## Milestones still pending
 
-- M0: actual bounded model/tool loop + reviewed dataset; offline starter only now.
-- M1: >=4 independent trials, fixed config, full model messages/tokens/cost,
-  concurrency, cache, and two unchanged runs for flip rate. Reusing cached
-  responses cannot measure noise: bypass response cache for the second run.
-- M2: full state/schema/trajectory graders, tool P/R, argument correctness,
-  loop/efficiency checks. Current substring checks are smoke tests only.
+- M0: model/tool loop now wired (2026-10-12); dev expectations still
+  unreviewed drafts, so M0 stays open until human review.
+- M1: trial machinery and flip-check built (`--trials`, `--flip-check`; the
+  second run bypasses the cache because cached responses cannot measure
+  noise). A full >=4-trial dev run is not done yet. Full token/cost logging
+  and concurrency are still missing.
+- M2: first reporting layers added (schema validity, mutation without
+  lookup, repeated calls, tool errors, step efficiency). They do not change
+  pass/fail. Full state/trajectory graders and tool P/R against reviewed
+  expectations are still missing. Current substring checks are smoke tests
+  only.
 - M3: atomic supported/contradicted/unsupported claims, fabricated entities,
   fabricated actions verified against successful tool effects, not mere calls.
 - M4: 100-200 real human-labeled trials, held-out judge validation and bias checks.
