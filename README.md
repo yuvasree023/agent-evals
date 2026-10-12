@@ -42,11 +42,24 @@ export GEMINI_API_KEY=...  # aistudio.google.com/api-keys
 
 python3 run.py --split dev --agent groq --limit 3     # small smoke
 python3 run.py --split dev --agent gemini --limit 3
+python3 run.py --split dev --agent groq --trials 4    # M1: repeated trials
+python3 run.py --split dev --agent groq --flip-check --limit 5  # two uncached
+# runs per task; reports the verdict flip rate (cached responses cannot
+# measure noise, so the second run bypasses the cache)
 ```
+
+Live records also carry M2 reporting layers (schema validity, mutation
+without prior lookup, repeated identical calls, tool errors, step use) next
+to the smoke graders; they inform human review and do not change pass/fail
+yet.
 
 Defaults: `openai/gpt-oss-120b` on Groq (free plan: 30 RPM, 1K RPD) and
 `gemini-3.5-flash-lite` on Gemini (free tier: 15 RPM, 500 RPD), from the
-consoles' own limits pages on 2026-10-12. Responses are cached on disk under
+consoles' own limits pages on 2026-10-12. On that date the loop was also run
+live on three happy-path dev tasks (tracking, refund, cancel): all trajectories
+looked up before mutating, required confirmation, and passed the smoke
+graders. Three easy draft tasks say nothing about quality; treat this as
+plumbing verification only. Responses are cached on disk under
 `.cache/` (gitignored, cache entries are keyed by a hash that mixes in the
 key); `--limit` keeps smoke runs small. Model agents are refused on the
 holdout split: it stays frozen for predeclared release gates. Gemini is
