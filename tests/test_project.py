@@ -158,3 +158,39 @@ class LayersAndTrialsTests(unittest.TestCase):
         import run
         with self.assertRaises(RuntimeError):
             run.run_live([],type("A",(),{"split":"all","agent":"groq","model":"m","cache_dir":"/tmp/c","flip_check":False,"trials":1,"no_cache":False})(),{"max_steps":8})
+
+class IndependentResumeTests(unittest.TestCase):
+    def test_trials_have_separate_caches_and_resume_completed_records(self):
+        import run, tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
+        tasks = [t for t in load_tasks() if t['split']=='dev'][:1]
+        with tempfile.TemporaryDirectory() as root:
+            args=SimpleNamespace(split='dev',agent='groq',model='m',cache_dir=root,
+                 flip_check=False,trials=4,no_cache=False,resume=True,
+                 checkpoint=Path(root)/'checkpoint.jsonl')
+            def fake(task, provider, model, **kwargs):
+                env=Store(task['fixture'])
+                return baseline(task['input'],env,8),env,[]
+            with mock.patch('agent.run_task',side_effect=fake) as call:
+                records=run.run_live(tasks,args,{'max_steps':8})
+                self.assertEqual(len(records),4)
+                self.assertEqual(len({c.kwargs['cache_dir'] for c in call.call_args_list}),4)
+                self.assertTrue(all(c.kwargs['use_cache'] for c in call.call_args_list))
+            with mock.patch('agent.run_task',side_effect=AssertionError('replayed complete trial')):
+                self.assertEqual(run.run_live(tasks,args,{'max_steps':8}),records)
+    def test_daily_quota_stops_and_checkpoints(self):
+        import run, tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
+        tasks=[t for t in load_tasks() if t['split']=='dev'][:2]
+        with tempfile.TemporaryDirectory() as root:
+            args=SimpleNamespace(split='dev',agent='groq',model='m',cache_dir=root,
+                flip_check=False,trials=4,no_cache=False,resume=True,
+                checkpoint=Path(root)/'checkpoint.jsonl')
+            with mock.patch('agent.run_task',side_effect=providers.DailyQuotaExhausted('quota')) as call:
+                records=run.run_live(tasks,args,{'max_steps':8})
+                self.assertEqual(call.call_count,1)
+                self.assertEqual(len(records),1)
+                self.assertIsNone(records[0]['passed'])
+                self.assertTrue(args.checkpoint.exists())
