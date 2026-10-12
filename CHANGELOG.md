@@ -26,3 +26,11 @@ change the smoke pass/fail. Live smoke on 2026-10-12: three happy-path dev
 tasks through Groq gpt-oss-120b, 3/3 smoke graders passed with correct
 lookup-before-mutate trajectories. Plumbing evidence only: dev expectations
 remain unreviewed drafts and no multi-trial run has been done.
+
+## 0.4 - Simulated online eval, README rewrite
+
+Added `online_eval.py` (seeded synthetic traffic from dev traces, sampling,
+windowed unconfirmed-write rate with Wilson intervals, consecutive-window alert),
+tests, and two demo outputs. Offline, no model calls. README rewritten to
+describe the M1 -> grader bug -> v2 gate -> judge calibration story and its
+limits. No new agent results: the v2 re-run is pending the Groq daily reset.
