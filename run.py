@@ -1,4 +1,10 @@
-"""Offline smoke runner. Expected fields are only consumed by graders."""
+"""Eval runner. Expected fields are only consumed by graders.
+
+Offline by default: `python3 run.py --split dev` uses the rule baseline with
+no network. Live runs use `--agent groq|gemini` with the matching API key in
+an environment variable, and are restricted to dev tasks; the holdout is only
+for predeclared release gates and this runner refuses it for model agents.
+"""
 import argparse
 import hashlib
 import json
@@ -44,29 +50,96 @@ def grade(expected, before, after, answer, trace):
             safety = safety and oid in seen and call["args"].get("confirmed") is True
     return {"state":bool(state), "response_smoke":bool(response), "policy_smoke":bool(safety)}
 
+def run_live(selected, args, config):
+    import agent
+    import providers
+    if args.split != "dev":
+        raise RuntimeError(
+            "Model agents run on dev only. The holdout is reserved for "
+            "predeclared release gates (see docs/method.md).")
+    records = []
+    for task in selected:
+        start = time.perf_counter()
+        try:
+            answer, env, messages = agent.run_task(
+                task, args.agent, args.model,
+                max_steps=config["max_steps"], cache_dir=args.cache_dir)
+            checks = grade(task["expected"], task_state(task), env.state(), answer, env.trace)
+            records.append(dict(task_id=task["id"], split=task["split"],
+                input=task["input"], answer=answer, trace=env.trace,
+                after=env.state(), graders=checks, passed=all(checks.values()),
+                messages=_strip(messages),
+                latency_ms=(time.perf_counter()-start)*1000, cost_usd=0,
+                agent=f"{args.agent}:{args.model}", error=None))
+            env.db.close()
+        except providers.ProviderError as exc:
+            records.append(dict(task_id=task["id"], split=task["split"],
+                input=task["input"], answer=None, trace=[], graders=None,
+                passed=None, error=str(exc),
+                latency_ms=(time.perf_counter()-start)*1000, cost_usd=0,
+                agent=f"{args.agent}:{args.model}"))
+    return records
+
+def task_state(task):
+    return sorted((dict(o) for o in task["fixture"]["orders"]),
+                  key=lambda o: o["id"])
+
+def _strip(messages):
+    """Drop provider raw turns from trace files; keep auditable content."""
+    out = []
+    for m in messages:
+        m = {k: v for k, v in m.items() if k != "raw"}
+        out.append(m)
+    return out
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--split", choices=["dev","holdout","all"], default="dev")
     parser.add_argument("--validate",action="store_true")
+    parser.add_argument("--agent", choices=["offline","groq","gemini"], default="offline")
+    parser.add_argument("--model", default=None,
+                        help="provider model ID; default from config.json")
+    parser.add_argument("--limit", type=int, default=None,
+                        help="run at most N tasks (smoke runs)")
+    parser.add_argument("--cache-dir", default=".cache/llm")
+    parser.add_argument("--no-cache", action="store_true")
     args=parser.parse_args(); tasks=load_tasks(); validate(tasks)
     if args.validate:
         print("Validated 50 tasks: 35 dev / 15 frozen holdout; expectations remain draft."); return
     config=json.loads((ROOT/"config.json").read_text())
-    if config["api_enabled"] or config["spend_cap_usd"] != 0 or config["agent"] != "offline-rules-v0":
-        raise RuntimeError("Only zero-spend offline baseline is implemented")
-    out=ROOT/"results/local"; out.mkdir(parents=True,exist_ok=True)
+    if args.agent != "offline" and not args.model:
+        args.model = config["default_models"][args.agent]
+    if args.agent == "offline":
+        if config["api_enabled"] or config["spend_cap_usd"] != 0 or config["agent"] != "offline-rules-v0":
+            raise RuntimeError("Only zero-spend offline baseline is implemented")
     selected=[t for t in tasks if args.split=="all" or t["split"]==args.split]
-    records=[]
-    for task in selected:
-        env=Store(task["fixture"]); before=env.state(); start=time.perf_counter()
-        answer=baseline(task["input"], env, config["max_steps"])
-        checks=grade(task["expected"],before,env.state(),answer,env.trace)
-        records.append(dict(task_id=task["id"],split=task["split"],input=task["input"],answer=answer,trace=env.trace,before=before,after=env.state(),graders=checks,passed=all(checks.values()),latency_ms=(time.perf_counter()-start)*1000,cost_usd=0,agent=config["agent"]))
-        env.db.close()
-    (out/(args.split+"-traces.jsonl")).write_text("".join(json.dumps(r)+"\n" for r in records))
-    passed=sum(r["passed"] for r in records)
-    summary=dict(mode="offline plumbing smoke, not LLM performance",split=args.split,tasks=len(records),passed=passed,success_rate=passed/len(records),cost_usd=0)
-    (out/(args.split+"-report.json")).write_text(json.dumps(summary,indent=2)+"\n")
+    if args.limit:
+        selected=selected[:args.limit]
+    out=ROOT/"results/local"; out.mkdir(parents=True,exist_ok=True)
+    if args.agent == "offline":
+        records=[]
+        for task in selected:
+            env=Store(task["fixture"]); before=env.state(); start=time.perf_counter()
+            answer=baseline(task["input"], env, config["max_steps"])
+            checks=grade(task["expected"],before,env.state(),answer,env.trace)
+            records.append(dict(task_id=task["id"],split=task["split"],input=task["input"],answer=answer,trace=env.trace,before=before,after=env.state(),graders=checks,passed=all(checks.values()),latency_ms=(time.perf_counter()-start)*1000,cost_usd=0,agent=config["agent"]))
+            env.db.close()
+    else:
+        if args.no_cache:
+            raise RuntimeError("--no-cache is reserved for M1 flip-rate runs")
+        records = run_live(selected, args, config)
+    suffix = f"{args.split}-{args.agent}"
+    (out/(suffix+"-traces.jsonl")).write_text("".join(json.dumps(r)+"\n" for r in records))
+    graded=[r for r in records if r["passed"] is not None]
+    passed=sum(r["passed"] for r in graded)
+    summary=dict(
+        mode=("offline plumbing smoke, not LLM performance" if args.agent=="offline"
+              else "live model smoke on draft dev expectations, not a benchmark"),
+        split=args.split, agent=args.agent if args.agent=="offline" else f"{args.agent}:{args.model or ''}",
+        tasks=len(records), graded=len(graded), passed=passed,
+        success_rate=(passed/len(graded)) if graded else None,
+        errors=len(records)-len(graded), cost_usd=0)
+    (out/(suffix+"-report.json")).write_text(json.dumps(summary,indent=2)+"\n")
     print(json.dumps(summary,indent=2))
 
 if __name__ == "__main__":
