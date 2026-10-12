@@ -96,14 +96,26 @@ def run_live(selected, args, config):
         args.trials = 2
         args.no_cache = True
     use_cache = not args.no_cache
+    # Each (task, trial) has its own cache. Replaying a interrupted trial is
+    # resumable, but distinct trials never share a sampled response.
+    checkpoint = getattr(args, "checkpoint", None)
     records = []
+    if getattr(args, "resume", False) and checkpoint and checkpoint.exists():
+        records = [json.loads(line) for line in checkpoint.read_text().splitlines()
+                   if line.strip()]
+        records = [r for r in records if r.get("passed") is not None]
+    completed = {(r["task_id"], r["trial"]) for r in records}
+    quota_stop = False
     for task in selected:
         for trial in range(1, args.trials + 1):
+            if (task["id"], trial) in completed:
+                continue
             start = time.perf_counter()
             try:
                 answer, env, messages = agent.run_task(
                     task, args.agent, args.model,
-                    max_steps=config["max_steps"], cache_dir=args.cache_dir,
+                    max_steps=config["max_steps"],
+                    cache_dir=str(Path(args.cache_dir) / task["id"] / str(trial)),
                     use_cache=use_cache)
                 checks = grade(task["expected"], task_state(task), env.state(), answer, env.trace)
                 layers = grade_layers(env.trace, answer, config["max_steps"], provider=args.agent)
@@ -123,6 +135,14 @@ def run_live(selected, args, config):
                     passed=None, error=str(exc),
                     latency_ms=(time.perf_counter()-start)*1000, cost_usd=0,
                     agent=f"{args.agent}:{args.model}"))
+                quota_stop = isinstance(exc, providers.DailyQuotaExhausted)
+            if checkpoint:
+                checkpoint.parent.mkdir(parents=True, exist_ok=True)
+                checkpoint.write_text("".join(json.dumps(r)+"\n" for r in records))
+            if quota_stop:
+                break
+        if quota_stop:
+            break
     return records
 
 def flip_summary(records):
@@ -162,6 +182,8 @@ def main():
     parser.add_argument("--cache-dir", default=".cache/llm")
     parser.add_argument("--no-cache", action="store_true",
                         help="bypass the response cache (flip-rate second runs)")
+    parser.add_argument("--resume", action="store_true",
+                        help="reuse completed trial checkpoints (same code/config only)")
     parser.add_argument("--trials", type=int, default=1,
                         help="independent trials per task (M1: use >=4)")
     parser.add_argument("--flip-check", action="store_true",
@@ -179,6 +201,8 @@ def main():
     if args.limit:
         selected=selected[:args.limit]
     out=ROOT/"results/local"; out.mkdir(parents=True,exist_ok=True)
+    suffix = f"{args.split}-{args.agent}" + ("-flip" if args.flip_check else "-m1")
+    args.checkpoint = out / (suffix + "-checkpoint.jsonl")
     if args.agent == "offline":
         records=[]
         for task in selected:
@@ -189,7 +213,6 @@ def main():
             env.db.close()
     else:
         records = run_live(selected, args, config)
-    suffix = f"{args.split}-{args.agent}"
     (out/(suffix+"-traces.jsonl")).write_text("".join(json.dumps(r)+"\n" for r in records))
     graded=[r for r in records if r["passed"] is not None]
     passed=sum(r["passed"] for r in graded)
@@ -202,9 +225,13 @@ def main():
         success_rate=(passed/len(graded)) if graded else None,
         trials=args.trials if args.agent != "offline" else 1,
         errors=len(records)-len(graded), cost_usd=0,
+        expected_records=len(selected)*(args.trials if args.agent != "offline" else 1),
+        complete=len(graded)==len(selected)*(args.trials if args.agent != "offline" else 1),
         flip_check=flips)
     (out/(suffix+"-report.json")).write_text(json.dumps(summary,indent=2)+"\n")
     print(json.dumps(summary,indent=2))
+    if not summary["complete"]:
+        raise SystemExit(75)  # checkpoints/artifacts retained; do not run flip yet
 
 if __name__ == "__main__":
     main()
