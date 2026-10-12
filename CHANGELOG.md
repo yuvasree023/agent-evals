@@ -15,3 +15,14 @@ honoring Retry-After with daily-quota stop, and dev-only live runs (holdout
 refused outside release gates). Verified live with two-turn tool loops
 against both providers on 2026-10-12. No model quality results claimed; dev
 expectations remain unreviewed drafts.
+
+## 0.3 - Trials, flip check, layered graders
+
+Added `--trials N` for repeated independent dev trials and `--flip-check`
+(two uncached runs per task, reports verdict flips) per the M1 plan, plus
+first M2 reporting layers (schema validity, mutation without lookup,
+repeated calls, tool errors, step efficiency) that accompany but do not
+change the smoke pass/fail. Live smoke on 2026-10-12: three happy-path dev
+tasks through Groq gpt-oss-120b, 3/3 smoke graders passed with correct
+lookup-before-mutate trajectories. Plumbing evidence only: dev expectations
+remain unreviewed drafts and no multi-trial run has been done.
