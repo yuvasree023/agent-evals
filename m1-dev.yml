@@ -1,0 +1,69 @@
+name: m1-dev-trials
+
+# Manual only. Free tier: runs use GROQ/GEMINI free plans, sequential requests
+# with pacing and caching in providers.py. Dev split only: run.py refuses the
+# holdout for model agents. No billing is enabled on either provider.
+
+on:
+  workflow_dispatch:
+    inputs:
+      agent:
+        description: Provider
+        required: true
+        default: groq
+        type: choice
+        options:
+          - groq
+          - gemini
+      trials:
+        description: Independent trials per task (M1 uses 4)
+        required: true
+        default: "4"
+      limit:
+        description: Max dev tasks (35 = full dev set)
+        required: true
+        default: "35"
+      flip_check:
+        description: Also run the two-uncached-runs flip check
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Tests and dataset validation
+        run: |
+          python3 -m unittest discover -s tests
+          python3 run.py --validate
+      - name: M1 dev trials
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: >-
+          python3 run.py --split dev
+          --agent ${{ inputs.agent }}
+          --trials ${{ inputs.trials }}
+          --limit ${{ inputs.limit }}
+      - name: Flip check (optional, uncached)
+        if: ${{ inputs.flip_check }}
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: >-
+          python3 run.py --split dev
+          --agent ${{ inputs.agent }}
+          --limit ${{ inputs.limit }}
+          --flip-check
+      - name: Upload traces and reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-${{ inputs.agent }}-traces
+          path: results/local/
+          retention-days: 30
