@@ -4,7 +4,7 @@
 
 This retrospective open-code audit is debugging evidence, not 118 new human labels. The primary categories reproduce the historical taxonomy after checking each failed input, answer and action sequence. A single primary cause does not exclude overlapping problems. Records omit the repeated get_policy output, which is the unchanged repository policy, and model message envelopes; action order, responses, state and original record fingerprints are retained.
 
-[Machine ledger with exact inputs, answers and traces](../results/m1-failure-ledger-2026-10-13.jsonl). The run_id distinguishes main from flip. Original trace hashes and full taxonomy are in [failure-taxonomy.md](failure-taxonomy.md).
+[Machine ledger with exact inputs, answers and traces](../results/results/m1-failure-ledger-2026-10-13.jsonl). The run_id distinguishes main from flip. Original trace hashes and full taxonomy are in [failure-taxonomy.md](failure-taxonomy.md).
 
 Synthetic admin/override passages are adversarial test data, not instructions or permission.
 
