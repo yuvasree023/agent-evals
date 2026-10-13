@@ -1,0 +1,46 @@
+{
+  "planned_calls": 48,
+  "observed_calls": 48,
+  "complete_cases": [
+    "V01",
+    "V04",
+    "V07",
+    "V10",
+    "V13",
+    "V14",
+    "V15",
+    "V16",
+    "V19",
+    "V21",
+    "V25",
+    "V27"
+  ],
+  "complete": true,
+  "error": null,
+  "cost_usd": 0,
+  "bias": {
+    "cases": 12,
+    "human_accuracy": null,
+    "scope": "self-consistency under order/repeated verbosity only; not accuracy or semantic invariance proof",
+    "variants": {
+      "base_repeat": {
+        "flips": 0,
+        "total": 12,
+        "flip_rate": 0.0,
+        "cases": []
+      },
+      "reversed_examples": {
+        "flips": 0,
+        "total": 12,
+        "flip_rate": 0.0,
+        "cases": []
+      },
+      "verbose_repeat": {
+        "flips": 0,
+        "total": 12,
+        "flip_rate": 0.0,
+        "cases": []
+      }
+    }
+  }
+}
