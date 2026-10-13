@@ -1,0 +1,47 @@
+{
+  "cases": [
+    "V01",
+    "V04",
+    "V07",
+    "V10",
+    "V13",
+    "V14",
+    "V15",
+    "V16",
+    "V19",
+    "V21",
+    "V25",
+    "V27"
+  ],
+  "variants": [
+    "base",
+    "base_repeat",
+    "reversed_examples",
+    "verbose_repeat"
+  ],
+  "calls_planned": 48,
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "uncached": true,
+  "frozen_hashes": {
+    "judge/judge.py": "25d937771205e1bf9f612d0de33bec26ba56b80daad3c0ac698fa967703e7c04",
+    "judge/validate.py": "c5934c8329f3cbda861f6674503a8f9c05085ee03a66ddabfd40feaebcfbdb55",
+    "policy.md": "79f5eb2c60642518f70ad9d2bf55ce7e75d2f1c9250b68172c652f1cf8476fe7",
+    "labels/dev-human-labels-2026-10-12.jsonl": "55f217ecc784bc2f913534632a12eb5a436fe162bfd7b0fa23fcbd413b58730c"
+  },
+  "few_shot_cases": [
+    "C04",
+    "C03",
+    "C36",
+    "C32",
+    "C21",
+    "C26",
+    "C39",
+    "C25",
+    "C22",
+    "C02"
+  ],
+  "few_shot_sha256": "dd662470fba61e99d62ccb401e0aaac6022a0d2ee0af5de971245f6201146463",
+  "cost_usd": 0,
+  "scope": "Groq-generated v2 traces assessed by Gemini; same-family Gemini generation results are not part of this experiment. Same frozen historical rubric, not a fresh accuracy test."
+}
