@@ -16,7 +16,7 @@ def fingerprint(value):return hashlib.sha256(json.dumps(value,sort_keys=True,sep
 def prepare(runs, shots):
     jobs=[]
     for record in runs:
-        for variant in ('base','reversed_examples','verbose_repeat'):
+        for variant in ('base','base_repeat','reversed_examples','verbose_repeat'):
             r=copy.deepcopy(record);examples=copy.deepcopy(shots)
             if variant=='reversed_examples':examples=list(reversed(examples))
             if variant=='verbose_repeat':r['answer']='\n\n'.join([r['answer']]*3)
@@ -34,9 +34,9 @@ def analyze(jobs):
         if fingerprint(j['payload'])!=j['payload_sha256']:raise ValueError('Payload changed after verdict collection')
         by[key]=j
     cases=sorted({c for c,v in by})
-    if any((c,v) not in by for c in cases for v in ('base','reversed_examples','verbose_repeat')):raise ValueError('Complete matched variants required')
+    if any((c,v) not in by for c in cases for v in ('base','base_repeat','reversed_examples','verbose_repeat')):raise ValueError('Complete matched variants required')
     out={'cases':len(cases),'human_accuracy':None,'scope':'self-consistency under order/repeated verbosity only; not accuracy or semantic invariance proof','variants':{}}
-    for v in ('reversed_examples','verbose_repeat'):
+    for v in ('base_repeat','reversed_examples','verbose_repeat'):
         flips=[c for c in cases if by[c,'base']['verdict']!=by[c,v]['verdict']]
         out['variants'][v]={'flips':len(flips),'total':len(cases),'flip_rate':len(flips)/len(cases) if cases else None,'cases':flips}
     return out
