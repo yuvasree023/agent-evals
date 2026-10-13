@@ -127,7 +127,17 @@ Demo output is in `results/online-eval-demo-baseline.json` (0 alerts) and
 controls. These tests prove the tested code paths only. Regex claim coverage is
 incomplete; this is not atomic-claim/NLI validation. No frozen judge changes or
 human labels are inferred. Live candidates can later be selected explicitly
-with `--agent-version v3` or `v4`; the default stays v1 and tomorrow's check v2.
+with `--agent-version v3` or `v4`; the default stays v1 and Groq v2 checks are deferred.
+
+## Diagnostic reporting and review queue
+
+`eval_quality.py` checks schema argument types, prior order-ID evidence and
+selected trajectory/response patterns. It reports feature slices, matched-task
+deltas, task-bootstrap intervals and reliability only where trial counts allow.
+It refuses mixed model/provider comparisons. Its deduplicated JSONL queue keeps
+human verdicts blank. See `docs/completion-gates.md` for reproduction, proposed
+release gates and work still waiting on evidence. A separate free Gemini run
+is exploratory; it is not pooled with Groq and uses no judge labels.
 
 ## Layout
 
@@ -142,7 +152,7 @@ with `--agent-version v3` or `v4`; the default stays v1 and tomorrow's check v2.
 
 ## Next
 
-1. Finish a fresh 70-run agent-v2 flip check after verifying the Groq quota reset.
+1. Groq v2 flip check is deferred at the owner's request. No automatic run is scheduled.
 2. Label about 30 fresh v2 runs and test the frozen judge on them.
 3. Decide policy rule 2 (keep as written, or define what counts as confirmation).
 4. Evaluate the unpromoted v3/v4 candidates after v2 is complete. No live
