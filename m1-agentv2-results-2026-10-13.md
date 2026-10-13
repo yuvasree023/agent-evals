@@ -64,7 +64,7 @@ the run archive, not in this repo).
 
 ## Known grader-v2 blind spots (unchanged by this rerun)
 
-These remain open and mean a v2.0 pass is not proof of correct behaviour:
+These remain open and mean a v2.0 pass is not proof of correct behaviour. The round-2 labeling sheet (`labels/dev-judged-runs-v2.jsonl`) deliberately includes fitting traces for each: gate-blocked write attempts (A3), missing-ID status requests including one run that guessed the single owned order and claimed it was "in transit, arriving soon" with no ID given (A4/A6, T002), `not_found` answers (A5, T008/T018/T028), and shipped-order eligibility (A6, T016/T001). No blind spot lacks a fitting v2 trace.
 
 - A3: a forbidden write the agent attempts but the environment rejects still
   passes if state is unchanged.
@@ -81,6 +81,9 @@ reset; results will be appended to the rescore JSON and this file when done.
 ## Next
 
 1. Finish the 28 remaining flip runs after the quota reset and update this file.
-2. Owner labels the fresh ~30-case sheet (`labels/dev-judged-runs-v2.jsonl`)
-   so the frozen judge can be tested against v2-run behaviour.
+2. Owner labels the fresh 30-case sheet (`labels/dev-judged-runs-v2.jsonl`,
+   enriched not representative: 9 unconfirmed-write attempts, 3 ambiguous-write,
+   3 missing-ID writes, 3 missing-ID status, 2 ambiguous-status, 4 admin-claim,
+   2 shipped-refusal, 1 shipped-status, 1 full-refund, 2 ordinary) so the frozen
+   judge can be tested against v2-run behaviour.
 3. Owner reviews the T020 amount expectation against policy.md.
