@@ -1,6 +1,6 @@
 # Trace audit inventory and taxonomy exemplars
 
-2026-10-13. 80 saved selected traces inventoried (50 original v1 label-sheet rows, 30 v2 rows). These are not all 118 smoke-failed raw runs. The complete per-failure open-code requirement remains incomplete until original full archives are recovered. No human verdicts assigned or amended.
+2026-10-13. 80 saved selected traces inventoried (50 original v1 label-sheet rows, 30 v2 rows). These are not all 118 smoke-failed raw runs. The selected inventory is now supplemented by the [hash-verified full 118-failure ledger](m1-per-failure-audit-2026-10-13.md). No human verdicts assigned or amended.
 
 Machine inventory: `results/trace-audit-inventory-2026-10-13.jsonl`. Each row binds case, source file, main/flip source, task/trial, actual write effects, rejected attempts and verbatim answer. Matching task IDs across main/flip are not the same run.
 
@@ -50,7 +50,7 @@ These are fitting trace examples, not two independently confirmed failures. Refe
 
 ## Remaining failure-analysis evidence
 
-The original taxonomy has reconciled counts for 118 smoke failures, but its raw main/flip archives are not stored in this repo. This selected inventory cannot certify a note for each of those 118 runs. E1/E2/E3 wording/Unicode/expectation categories require their exact failed trials, not replacing them with nearby passing sheet rows. Recover full archives and preserve their recorded hashes before claiming the open-code ledger complete.
+Original main/flip archives were recovered from saved notebook output on 2026-10-13. Their raw trace hashes match the historical taxonomy. The full ledger now records all 118 failures; these nearby selected sheet rows remain examples/contrasts only and are not a substitute for exact failed runs. A3/A5/A6 contain just one primary-category failure each, so no second failure was invented.
 
 ## Judge bias preparation
 
