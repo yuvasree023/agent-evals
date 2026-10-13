@@ -47,45 +47,64 @@ Report class counts and undefined denominators honestly. Check verbosity and
 position bias. Slice failures by feature/scenario/persona, then read failures
 and open-code root causes. Specialized judges come after evidence of need.
 
-## Milestones still pending
+## Milestone status (2026-10-13)
 
-- M0: model/tool loop now wired (2026-10-12); dev expectations still
-  unreviewed drafts, so M0 stays open until human review.
-- M1: trial machinery and flip-check built (`--trials`, `--flip-check`; the
-  second run bypasses the cache because cached responses cannot measure
-  noise). A full >=4-trial dev run is not done yet. Full token/cost logging
-  and concurrency are still missing.
-- M2: first reporting layers added (schema validity, mutation without
-  lookup, repeated calls, tool errors, step efficiency). They do not change
-  pass/fail. Full state/trajectory graders and tool P/R against reviewed
-  expectations are still missing. Current substring checks are smoke tests
-  only.
-- M3: atomic supported/contradicted/unsupported claims, fabricated entities,
-  fabricated actions verified against successful tool effects, not mere calls.
-- M4: 100-200 real human-labeled trials, held-out judge validation and bias checks.
-- M5: read >=100 failed traces, taxonomy (5-10 categories), counts and examples.
-- M6: >=3 gated fixes, dev tuning only, task-cluster bootstrap CIs, paired
-  comparison, no category regression, compare deltas with flip rate, charts.
-- M7: simulated online traffic, reference-free graders, review queue and alert.
+- M0: environment, model loop, 50 tasks and 35/15 hash lock exist. Human review
+  of all dev expectations remains incomplete. T020 amount semantics are open.
+- M1: v1 main and flip are recorded; v2 main has 140 runs, flip only 42/70.
+  A fresh 70-run v2 flip check is planned after quota reset. Runs are sequential
+  for free-tier pacing, not parallel. No candidate-v3/v4 model results exist.
+- M2: state, response and policy graders and reporting layers exist. Grader v2
+  has documented blind spots. New candidate diagnostics inspect attempts,
+  including rejected writes, but do not replace old scores. Comprehensive tool
+  precision/recall and full schema validation remain open.
+- M3: narrow deterministic response checks are prepared for invented order IDs,
+  action claims, global nonexistence and shipping statements. Full atomic-claim
+  support labels/NLI and validated hallucination rates remain open.
+- M4: 50 owner labels and a judge validation report exist. Rubric saw these
+  labels; small test failure class means this is not proven general accuracy.
+  The fresh 30-case v2 set awaits owner labels. Frozen judge is unchanged;
+  100-200 labels and independent per-claim/bias testing remain incomplete.
+- M5: taxonomy reviews 118 smoke-failed v1 main/flip runs with reconciled counts.
+  Open-coded note per failed trace and two clickable exemplars per category
+  remain incomplete. See failure-taxonomy.md for actual scope and overlaps.
+- M6: one measured confirmation-gate fix; rounds 2/3 are unpromoted offline
+  candidates. Three measured gated iterations, task-cluster bootstrap CIs,
+  category non-regression gates and untouched-holdout chart remain open.
+- M7: simulated online eval, sampling, Wilson intervals and alert demo exist.
+  Real traffic integration and a persistent annotation queue are not built.
 
-pass^k estimates all k trials succeeding; pass@k estimates at least one.
-Resample tasks, not trials. Predeclare task set, trial count, gate thresholds,
-and reporting schedule before seeing outcomes. No invented metrics or chart.
+## Next experiment and gates
+
+First finish v2 flip with unchanged code/model/grader. Then collect owner V01-V30
+labels and test the unchanged judge before tuning it. Neither T020 nor pending
+C01/C03/C04 labels may be resolved by code changes. Candidate v3 adds observed-
+state eligibility checks; v4 adds clarification and narrow response grounding.
+Offline scripted tests are preparation, not evidence of model improvement.
+
+For candidate live comparisons, use the same 35 dev tasks, four independent
+trials and two uncached flip trials, same Groq model, isolated versioned outputs.
+Report old grader-v2 diagnostics alongside new per-family attempt/claim signals,
+never rename a new grader score as improvement over old scoring. Treat task
+repetitions as clustered, not independent samples. Do not promote on unit tests.
+Freeze meaningful thresholds before release-gate outcomes. No holdout execution
+or holdout-driven tuning is authorized in the current dev workflow.
+
+pass^k means all k trials succeeding; pass@k means at least one. A complete
+uncached paired protocol is needed before either reliability claim is made.
 
 ## Spend and data licences
 
-All current execution is offline, standard library, zero API cost. Config
-refuses API enablement: a provider adapter is not implemented. Before paid
-runs, select agent/judge models, approve a hard total cap, record price/version,
-reserve worst-case request cost before calls, stop at cap, and cache with model,
-prompt, tool schema, policy, and input hashes. Never commit API keys or real
-customer traces. `.gitignore` is defence in depth, not a secret scanner.
+Offline tests require no network or model calls. Live adapters support free
+Groq/Gemini plans, configured for $0 with no billing card. Provider/model is
+unchanged. Keys stay out of the repository. A quota reset must be verified by
+current provider response; a schedule is not proof of availability. Free-tier
+settings and zero-spend guards are not an unlimited-quota guarantee.
 
-Fixtures are fictional and contain no external dataset rows. No benchmark
-code, brief text, or blog prompt is copied into the runtime. The architecture
-uses ideas from the sources below. No third-party dataset is currently used;
-check source licences and redistribution terms before importing one. A source
-link is not a licence grant. No repository code/data licence selected yet.
+Fixtures are fictional; no real customer data or external dataset rows are
+included. Source links are not licence grants. No repository licence was
+selected, by the owner's choice. Do not import third-party code/data without
+checking redistribution terms.
 
 ## Sources
 
