@@ -1,0 +1,13 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "protocol": "35 dev tasks x four versions x one uncached trial, interleaved; exploratory only",
+  "expected_records": 140,
+  "records": 140,
+  "requests_started": 339,
+  "request_cap": 400,
+  "complete": true,
+  "stop": null,
+  "cost_usd": 0,
+  "holdout_executed": false
+}
