@@ -85,8 +85,11 @@ is a human-review question, not an automatically assigned failure.
 - Groq v2 flip: 42/70 recorded previously; a complete fresh check is deferred.
 - No three measured gated iterations or holdout improvement chart exists.
 - Full atomic claim segmentation/NLI support judging, real tool precision/recall
-  references, embedding-based dataset deduplication, per-failure open-code notes
-  with two linked examples per taxonomy category remain incomplete.
+  references and embedding-based dataset deduplication remain incomplete.
+- The [original M1 per-failure ledger](m1-per-failure-audit-2026-10-13.md) now
+  covers all 118 historical smoke failures with hash-verified exact-run evidence.
+  A3/A5/A6 each have only one primary-category failure; their second example
+  is explicitly a contrast, not an invented additional failure.
 - Review queue persists as a JSONL file, not a production annotation service.
 - Sequential pacing replaces parallel execution under free quotas; no billing
   card, paid compute, quota-bypass account or paid fallback is allowed.
