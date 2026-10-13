@@ -142,7 +142,7 @@ def run_task(task, provider, model, max_steps=8, cache_dir='.cache/llm', use_cac
     answer = ''
     for _ in range(max_steps):
         result = providers.chat(provider, model, messages, TOOL_SCHEMAS, cache_dir=cache_dir, use_cache=use_cache)
-        messages.append({'role': 'assistant', 'content': result['content'], 'tool_calls': result['tool_calls']})
+        messages.append({'role': 'assistant', 'content': result['content'], 'tool_calls': result['tool_calls'], 'raw': result.get('raw')})
         if not result['tool_calls']:
             answer = result['content']; break
         for call in result['tool_calls']:
