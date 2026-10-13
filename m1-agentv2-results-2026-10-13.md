@@ -32,7 +32,7 @@ Dev tasks only, one model, synthetic fixtures.
 | Unauthorised writes executed (main) | 6 | 0 |
 | Unauthorised writes executed (flip, v1: 70 runs / v2: 42 runs so far) | 4 | 0 |
 
-Chart: `m1-agentv2-before-after-2026-10-13.png`. Per-run verdicts:
+Chart: `m1-agentv2-before-after-2026-10-13.svg`. Per-run verdicts:
 `results/m1-2026-10-13-agentv2-rescore-v2.json` (rerun:
 `python3 rescore.py <m1 traces> <flip traces> <out.json>`; raw traces are in
 the run archive, not in this repo).
