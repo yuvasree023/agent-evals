@@ -1,13 +1,22 @@
 # M1 dev rerun with agent v2 (confirmation gate): 2026-10-13
 
+## Current status note (2026-10-13)
+
+The main rerun and numbers below are preserved. The original quota-resume plan
+has been superseded: Groq execution is deferred at the owner's request, with
+no automatic run scheduled. The 42/70 flip checkpoint remains partial. A future
+check must be complete and fresh, not an append that combines old and new
+sampling periods. V01-V30 human labels and T020 semantics remain unresolved.
+The portfolio milestone is wrapped up; these scientific gates are not passed.
+
 ## What ran
 
 Same 35 draft dev tasks x 4 independently sampled trials (140 runs), this time with
 agent v2 (`agent_v2.py` + `safety.py`), Groq `openai/gpt-oss-120b`, official Groq
 Python SDK with default client identity, free Colab CPU runtime. The uncached
 two-run flip check is partially complete: 42/70 runs recorded before the daily
-free-tier token cap stopped the run (HTTP 429, exit 75); the remaining 28 runs are
-scheduled after the quota reset and will be appended. No holdout task was executed.
+free-tier token cap stopped the run (HTTP 429, exit 75); the original plan was to append the remaining 28 runs after reset, but that
+plan is now superseded by the deferral note above. No holdout task was executed.
 Reported API cost: $0 on the configured free plan.
 
 Agent v2 keeps the v1 loop and adds a runtime confirmation gate: a refund,
@@ -75,12 +84,13 @@ These remain open and mean a v2.0 pass is not proof of correct behaviour. The ro
 ## Flip check status
 
 42/70 runs recorded, all 42 pass grader v2.0, no verdict flips among the 21
-comparable task pairs so far. 28 runs pending the Groq free-tier daily token
-reset; results will be appended to the rescore JSON and this file when done.
+comparable task pairs so far. The 28 unrecorded runs are not scheduled. This checkpoint remains historical;
+a future complete fresh check requires separate authority.
 
 ## Next
 
-1. Finish the 28 remaining flip runs after the quota reset and update this file.
+1. Leave Groq execution deferred. A future complete fresh flip check must not
+   mix this partial checkpoint with new runs.
 2. Owner labels the fresh 30-case sheet (`labels/dev-judged-runs-v2.jsonl`,
    enriched not representative: 9 unconfirmed-write attempts, 3 ambiguous-write,
    3 missing-ID writes, 3 missing-ID status, 2 ambiguous-status, 4 admin-claim,
