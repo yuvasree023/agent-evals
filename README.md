@@ -5,11 +5,11 @@ agent over SQLite and a written policy (`policy.md`). The point is the
 measurement, not the agent. Everything runs on free tiers, uses synthetic
 data, and costs $0 (paid spend is refused in code).
 
-**Status: work in progress.** Agent v2's 140-run dev main run is complete;
+**Status: current portfolio milestone wrapped up; scientific validation incomplete.** Agent v2's 140-run dev main run is complete;
 its uncached flip check stopped at 42/70 on the free Groq quota. The next
 check will use a fresh complete flip run, not combine partial and fresh trials.
-Rounds 2/3 candidates are implemented and tested offline, not promoted or
-measured on a model. Nothing here is a benchmark accuracy claim.
+Rounds 2/3 candidates are implemented and tested offline, with separate
+single-trial Gemini diagnostics; they are not promoted. Nothing here is a benchmark accuracy claim.
 
 Separate Gemini exploratory run: 140/140 records (one trial for each of 35 dev
 tasks across v1-v4). Grader-v2 diagnostics: 25/35, 32/35, 31/35, 31/35.
@@ -17,6 +17,32 @@ v3/v4 were not promoted. See `docs/gemini-exploratory-results-2026-10-13.md`.
 Zero confirmation/target violations in v2-v4 did not mean zero wrong parameter
 writes: T030 invented/reused an address. Unmeasured v5 adds narrow address
 provenance checks; it does not rewrite measured versions or resolve T020.
+
+## Current-version closeout (2026-10-13)
+
+The current code, saved-result analysis and approved static demo are ready to
+share as a portfolio milestone. This is not a scientific validation or release
+claim. Further experiments and decisions are left for later, not silently
+completed or automatically scheduled.
+
+- [Live demo on Vercel](https://agent-evals-seven.vercel.app/)
+- [GitHub Pages copy](https://yuvasree023.github.io/agent-evals/)
+- Demo source: `docs/index.html`; maintenance and local serving: `demo/README.md`.
+- Saved evidence: the M1 reports, separate Gemini report, 118-row historical
+  failure audit and limited 48-call judge-bias report under `docs/` and `results/`.
+- Offline reproduction verified for this snapshot: 91 tests passing, 35 dev /
+  15 frozen holdout hashes validated, simulated baseline 0 alerts and drift
+  1 alert. Validation checks hashes; it does not evaluate holdout performance.
+- Later work: V01-V30 human labels, T020 amount semantics and C01/C03/C04 policy
+  decisions, reviewed tool/claim annotations, FAIL-inclusive bias evidence,
+  repeated same-model comparisons, the deferred fresh Groq flip check and an
+  agreed holdout release protocol. See `docs/completion-gates.md`.
+
+The demo serves saved synthetic data only, with no API keys, model calls,
+backend or dependency install. Vercel uses the free Hobby plan and deploys the
+`docs` root from `main`; GitHub Pages remains enabled. No billing card or paid
+fallback is used. The original labels, frozen judge, policy and historical
+results stay unchanged. No repository licence has been selected.
 
 ## What was built
 
@@ -53,10 +79,11 @@ provenance checks; it does not rewrite measured versions or resolve T020.
    accuracy (`m1-rescore-v2-2026-10-12.md`).
 4. **The v2 gate.** `agent_v2.py` keeps the same loop and adds a runtime gate
    between the model and the database that rejects a write without a yes/confirm
-   and a single named order ID. The re-run on dev stopped early: the Groq free
-   daily token quota returned HTTP 429 after 45 of 140 trials were graded, so
-   there is **no v2 result yet**. The partial checkpoint is kept for
-   reference only (`results/dev-groq-v2-m1-checkpoint.partial.jsonl`).
+   and a single named order ID. The first dev attempt stopped at 45/140 on the free Groq quota; that partial
+   checkpoint remains historical evidence. The later main rerun completed
+   140/140: grader v2 passed 139/140, with zero executed confirmation/target
+   violations under its narrow checks. The separate flip check remains 42/70
+   and is deferred, not scheduled. See `m1-agentv2-results-2026-10-13.md`.
 5. **Human labels and a judge.** 50 dev runs were labelled PASS/FAIL against
    the policy by the project owner (40 PASS, 10 FAIL). Grader v2 agrees on
    49/50. The one miss (C27) is a refund *attempt* on a shipped order that the
@@ -162,8 +189,8 @@ is exploratory; it is not pooled with Groq and uses no judge labels.
 1. Groq v2 flip check is deferred at the owner's request. No automatic run is scheduled.
 2. Label about 30 fresh v2 runs and test the frozen judge on them.
 3. Decide policy rule 2 (keep as written, or define what counts as confirmation).
-4. Evaluate the unpromoted v3/v4 candidates after v2 is complete. No live
-   candidate results, three measured iterations, or holdout gains exist yet.
+4. Evaluate the unpromoted v3/v4 candidates after v2 is complete. Single-trial Gemini candidate diagnostics exist, but no three measured
+   gated improvements or holdout gains exist yet.
    No repository licence is selected; that is intentional for now.
 
 No real customer data or credentials are included.
