@@ -45,3 +45,14 @@ cover shipped/pending/delivered boundaries, refund ceilings, failed-service
 controls, successful confirmed refunds and selected evidence failures.
 Updated stale README/method status. Offline tests and split/hash validation
 only; no API calls, model improvement deltas, promotion or holdout results.
+
+
+## 0.6 - Separate Gemini experiment and offline reporting
+
+Preserved Gemini raw model turns for thought-signature replay, with a regression
+control. Added a quota-bounded, interleaved Gemini-only dev notebook and offline
+schema/provenance/attempt diagnostics, matched-task reporting, task-bootstrap
+intervals, finite-n reliability estimates and a deduplicated human review queue.
+Groq execution deferred by the owner. No inferred human labels, validated
+hallucination rate, candidate promotion or holdout gains claimed. Actual Gemini
+results are reported only after retrieving and verifying saved outputs.
