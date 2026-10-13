@@ -1,0 +1,38 @@
+{
+  "status": "BLOCKED_ON_ORIGINAL_HUMAN_LABELS",
+  "purpose": "FAIL-inclusive follow-up to the narrow all-PASS bias experiment",
+  "execution_authorized_by_template": false,
+  "source": "labels/dev-judged-runs-v2.jsonl",
+  "human_labels": null,
+  "selection_rule": {
+    "required_original_user_labels": "V01-V30 with explicit PASS/FAIL, case coverage and source fingerprints verified before selection",
+    "fail_selection": "Up to 6 FAIL cases, first one per task sorted by task_id and case; fill remaining FAIL slots by case ID",
+    "pass_selection": "Same number of PASS controls, first one per task sorted by task_id and case; fill remaining slots by case ID",
+    "shortfall": "If no FAIL labels, do not run. If either class has fewer than 6, use the smaller available class size for both classes and report the reduced scope. Do not create labels or substitute judge verdicts.",
+    "cases": null,
+    "maximum_cases": 12,
+    "selection_based_on_new_judge_verdicts": false
+  },
+  "variants": ["base", "base_repeat", "reversed_examples", "verbose_repeat"],
+  "maximum_planned_calls": 48,
+  "repeat_control": "Unchanged base repeat; report stochastic flips beside changed-variant flips",
+  "frozen_inputs": ["judge/judge.py", "judge/validate.py", "policy.md", "labels/dev-human-labels-2026-10-12.jsonl"],
+  "few_shots": "Historical train cases and original contents/order; reverse order only in reversed_examples",
+  "final_preflight": [
+    "Check later user restrictions and explicit authorization before calls",
+    "Resolve conflicting human labels/policy decisions before any affected analysis",
+    "Record source commit, exact selected cases and frozen hashes before new verdicts",
+    "Verify free-tier status and quota; $0, no billing card or paid/provider fallback",
+    "Use unique experiment output directory; never overwrite previous records",
+    "Preserve partial output on quota/error and score complete matched cases only"
+  ],
+  "reporting_limits": [
+    "No test or judge accuracy claim from this targeted retrospective selection",
+    "Human FAIL selection does not guarantee the judge will produce any FAIL verdicts",
+    "Historical rubric contamination remains; labels must not change the frozen rubric",
+    "Small targeted subset and one repeat cannot isolate bias causally",
+    "Example-order sensitivity is not candidate-answer position bias",
+    "Answer repetition is a verbosity stress test, not semantic invariance proof",
+    "Original v2 source traces are Groq-generated; separate Gemini agent experiments are not independently validated here"
+  ]
+}
