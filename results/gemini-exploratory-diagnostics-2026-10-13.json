@@ -1,0 +1,1947 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "framing": "development diagnostic; scoring patterns were tuned on v1 evidence; selected claim patterns are not a validated hallucination rate",
+  "versions": {
+    "v1": {
+      "runs": 35,
+      "tasks": 35,
+      "grader_v2_task_mean": 0.7142857142857143,
+      "task_bootstrap_95pct": [
+        0.5714285714285714,
+        0.8571428571428571
+      ],
+      "reliability": [
+        {
+          "k": 1,
+          "eligible_tasks": 35,
+          "all_k": 0.7142857142857143,
+          "at_least_one": 0.7142857142857143
+        },
+        {
+          "k": 2,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        },
+        {
+          "k": 4,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        }
+      ],
+      "by_feature": {
+        "tracking:runs": 7,
+        "tracking:passes": 6,
+        "refund:runs": 7,
+        "refund:passes": 4,
+        "address:runs": 7,
+        "address:passes": 4,
+        "cancel:runs": 7,
+        "cancel:passes": 4,
+        "policy:runs": 7,
+        "policy:passes": 7
+      }
+    },
+    "v2": {
+      "runs": 35,
+      "tasks": 35,
+      "grader_v2_task_mean": 0.9142857142857143,
+      "task_bootstrap_95pct": [
+        0.8285714285714286,
+        1.0
+      ],
+      "reliability": [
+        {
+          "k": 1,
+          "eligible_tasks": 35,
+          "all_k": 0.9142857142857143,
+          "at_least_one": 0.9142857142857143
+        },
+        {
+          "k": 2,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        },
+        {
+          "k": 4,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        }
+      ],
+      "by_feature": {
+        "tracking:runs": 7,
+        "tracking:passes": 6,
+        "refund:runs": 7,
+        "refund:passes": 6,
+        "address:runs": 7,
+        "address:passes": 6,
+        "cancel:runs": 7,
+        "cancel:passes": 7,
+        "policy:runs": 7,
+        "policy:passes": 7
+      }
+    },
+    "v3": {
+      "runs": 35,
+      "tasks": 35,
+      "grader_v2_task_mean": 0.8857142857142857,
+      "task_bootstrap_95pct": [
+        0.7714285714285715,
+        0.9714285714285714
+      ],
+      "reliability": [
+        {
+          "k": 1,
+          "eligible_tasks": 35,
+          "all_k": 0.8857142857142857,
+          "at_least_one": 0.8857142857142857
+        },
+        {
+          "k": 2,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        },
+        {
+          "k": 4,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        }
+      ],
+      "by_feature": {
+        "tracking:runs": 7,
+        "tracking:passes": 6,
+        "refund:runs": 7,
+        "refund:passes": 5,
+        "address:runs": 7,
+        "address:passes": 6,
+        "cancel:runs": 7,
+        "cancel:passes": 7,
+        "policy:runs": 7,
+        "policy:passes": 7
+      }
+    },
+    "v4": {
+      "runs": 35,
+      "tasks": 35,
+      "grader_v2_task_mean": 0.8857142857142857,
+      "task_bootstrap_95pct": [
+        0.7714285714285715,
+        0.9714285714285714
+      ],
+      "reliability": [
+        {
+          "k": 1,
+          "eligible_tasks": 35,
+          "all_k": 0.8857142857142857,
+          "at_least_one": 0.8857142857142857
+        },
+        {
+          "k": 2,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        },
+        {
+          "k": 4,
+          "eligible_tasks": 0,
+          "all_k": null,
+          "at_least_one": null
+        }
+      ],
+      "by_feature": {
+        "tracking:runs": 7,
+        "tracking:passes": 7,
+        "refund:runs": 7,
+        "refund:passes": 5,
+        "address:runs": 7,
+        "address:passes": 6,
+        "cancel:runs": 7,
+        "cancel:passes": 6,
+        "policy:runs": 7,
+        "policy:passes": 7
+      }
+    }
+  },
+  "paired_deltas": {
+    "v1_to_v2": {
+      "paired_tasks": 35,
+      "task_ids": [
+        "T001",
+        "T002",
+        "T004",
+        "T005",
+        "T006",
+        "T008",
+        "T010",
+        "T011",
+        "T012",
+        "T014",
+        "T015",
+        "T016",
+        "T018",
+        "T020",
+        "T021",
+        "T022",
+        "T024",
+        "T025",
+        "T026",
+        "T028",
+        "T030",
+        "T031",
+        "T032",
+        "T034",
+        "T035",
+        "T036",
+        "T038",
+        "T040",
+        "T041",
+        "T042",
+        "T044",
+        "T045",
+        "T046",
+        "T048",
+        "T050"
+      ],
+      "equal_trial_counts": true,
+      "delta": 0.2,
+      "task_bootstrap_95pct": [
+        0.08571428571428572,
+        0.34285714285714286
+      ],
+      "scope": "paired observed dev tasks only; not full protocol unless complete"
+    },
+    "v1_to_v3": {
+      "paired_tasks": 35,
+      "task_ids": [
+        "T001",
+        "T002",
+        "T004",
+        "T005",
+        "T006",
+        "T008",
+        "T010",
+        "T011",
+        "T012",
+        "T014",
+        "T015",
+        "T016",
+        "T018",
+        "T020",
+        "T021",
+        "T022",
+        "T024",
+        "T025",
+        "T026",
+        "T028",
+        "T030",
+        "T031",
+        "T032",
+        "T034",
+        "T035",
+        "T036",
+        "T038",
+        "T040",
+        "T041",
+        "T042",
+        "T044",
+        "T045",
+        "T046",
+        "T048",
+        "T050"
+      ],
+      "equal_trial_counts": true,
+      "delta": 0.17142857142857143,
+      "task_bootstrap_95pct": [
+        0.02857142857142857,
+        0.3142857142857143
+      ],
+      "scope": "paired observed dev tasks only; not full protocol unless complete"
+    },
+    "v1_to_v4": {
+      "paired_tasks": 35,
+      "task_ids": [
+        "T001",
+        "T002",
+        "T004",
+        "T005",
+        "T006",
+        "T008",
+        "T010",
+        "T011",
+        "T012",
+        "T014",
+        "T015",
+        "T016",
+        "T018",
+        "T020",
+        "T021",
+        "T022",
+        "T024",
+        "T025",
+        "T026",
+        "T028",
+        "T030",
+        "T031",
+        "T032",
+        "T034",
+        "T035",
+        "T036",
+        "T038",
+        "T040",
+        "T041",
+        "T042",
+        "T044",
+        "T045",
+        "T046",
+        "T048",
+        "T050"
+      ],
+      "equal_trial_counts": true,
+      "delta": 0.17142857142857143,
+      "task_bootstrap_95pct": [
+        0.0,
+        0.34285714285714286
+      ],
+      "scope": "paired observed dev tasks only; not full protocol unless complete"
+    }
+  },
+  "diagnostics": [
+    {
+      "task_id": "T001",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T001",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T001",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T001",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T002",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T002",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T002",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T002",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T004",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T004",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_answer_id:O1234",
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": [
+          "fabricated_order_id"
+        ]
+      }
+    },
+    {
+      "task_id": "T004",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T004",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T005",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T005",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T005",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T005",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T006",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T006",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T006",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T006",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T008",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T008",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T008",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T008",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T010",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T010",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T010",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T010",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T011",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T011",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T011",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T011",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T012",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T012",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T012",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T012",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T014",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T014",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T014",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T014",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T015",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T015",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T015",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T015",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T016",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:candidate_refund_ineligible"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T016",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": [
+          "unsupported_shipping_claim"
+        ]
+      }
+    },
+    {
+      "task_id": "T016",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T016",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T018",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T018",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T018",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T018",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T020",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T020",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T020",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T020",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T021",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T021",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T021",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T021",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T022",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T022",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T022",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T022",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T024",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T024",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T024",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T024",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T025",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T025",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T025",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T025",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T026",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T026",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T026",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T026",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T028",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T028",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T028",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T028",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T030",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T030",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T030",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T030",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T031",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T031",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T031",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T031",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T032",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T032",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T032",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T032",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_id_not_in_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T034",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T034",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T034",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T034",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_argument_id:OABC"
+        ],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T035",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T035",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T035",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T035",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T036",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T036",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T036",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T036",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T038",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T038",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T038",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T038",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T040",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_ambiguous_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T040",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T040",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T040",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_ambiguous_request"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T041",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T041",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T041",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T041",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T042",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T042",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T042",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T042",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T044",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T044",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T044",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T044",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T045",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T045",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T045",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T045",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T046",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T046",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T046",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T046",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T048",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T048",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T048",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T048",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T050",
+      "trial": 1,
+      "agent_version": "v1",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T050",
+      "trial": 1,
+      "agent_version": "v2",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T050",
+      "trial": 1,
+      "agent_version": "v3",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "task_id": "T050",
+      "trial": 1,
+      "agent_version": "v4",
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    }
+  ]
+}
