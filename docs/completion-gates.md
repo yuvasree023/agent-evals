@@ -76,8 +76,9 @@ is a human-review question, not an automatically assigned failure.
 - V01-V30 labels; do not tune the frozen judge before testing against these.
 - T020: does a confirmed refund with no amount mean full refund or ask amount?
 - C01/C03/C04: keep current explicit-yes rule or revise policy consistently?
-- 100-200 real owner-labelled trials/per-claim support annotations and independent
-  judge bias tests. Original 50 labels remain unchanged. Gemini as both agent
+- 100-200 real owner-labelled trials/per-claim support annotations and stronger
+  FAIL-inclusive judge bias evidence. The [48-call bias experiment](judge-bias-results-2026-10-13.md)
+  completed but produced all PASS verdicts; zero flips is not evidence of no bias. Original 50 labels remain unchanged. Gemini as both agent
   and judge is same-family assessment, not independent model-family validation.
 
 ## Deferred or incomplete
