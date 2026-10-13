@@ -5,8 +5,11 @@ agent over SQLite and a written policy (`policy.md`). The point is the
 measurement, not the agent. Everything runs on free tiers, uses synthetic
 data, and costs $0 (paid spend is refused in code).
 
-**Status: work in progress.** The agent-v2 re-run is paused until the Groq
-daily quota resets. Nothing here is a claim about how good the agent is.
+**Status: work in progress.** Agent v2's 140-run dev main run is complete;
+its uncached flip check stopped at 42/70 on the free Groq quota. The next
+check will use a fresh complete flip run, not combine partial and fresh trials.
+Rounds 2/3 candidates are implemented and tested offline, not promoted or
+measured on a model. Nothing here is a benchmark accuracy claim.
 
 ## What was built
 
@@ -107,6 +110,25 @@ Demo output is in `results/online-eval-demo-baseline.json` (0 alerts) and
 `results/online-eval-demo-drift.json` (1 alert). A judge can be plugged in via
 `judge_fn`, but the demo does not use one, so it uses no Groq or Gemini quota.
 
+## Offline candidates for rounds 2 and 3
+
+`agent_candidates.py` keeps the measured v1/v2 code unchanged:
+
+- v3 checks known lookup results before write execution: eligibility, remaining
+  refund amount, address validity, and pending-only changes/cancellations.
+- v4 adds missing-ID clarification for the observed status question and narrow
+  response checks for account-scoped not-found wording, invented order IDs,
+  unsupported shipping claims and action claims without successful tool effects.
+- Attempt diagnostics distinguish forbidden attempts from eligible calls that
+  fail unexpectedly. A blocked attempt is still visible, not rewritten as a
+  correct decision by the model.
+
+`tests/test_candidates.py` uses scripted model responses and positive/negative
+controls. These tests prove the tested code paths only. Regex claim coverage is
+incomplete; this is not atomic-claim/NLI validation. No frozen judge changes or
+human labels are inferred. Live candidates can later be selected explicitly
+with `--agent-version v3` or `v4`; the default stays v1 and tomorrow's check v2.
+
 ## Layout
 
 - `support.py`, `agent.py`, `agent_v2.py`, `safety.py`: environment, agent loop, v2 gate
@@ -120,10 +142,12 @@ Demo output is in `results/online-eval-demo-baseline.json` (0 alerts) and
 
 ## Next
 
-1. Re-run agent v2 on dev when the Groq quota resets, and report it next to v1.
+1. Finish a fresh 70-run agent-v2 flip check after verifying the Groq quota reset.
 2. Label about 30 fresh v2 runs and test the frozen judge on them.
 3. Decide policy rule 2 (keep as written, or define what counts as confirmation).
-4. Choose a licence. None is selected yet.
+4. Evaluate the unpromoted v3/v4 candidates after v2 is complete. No live
+   candidate results, three measured iterations, or holdout gains exist yet.
+   No repository licence is selected; that is intentional for now.
 
 No real customer data or credentials are included.
 
