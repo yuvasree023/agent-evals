@@ -71,6 +71,13 @@ class CandidateTests(unittest.TestCase):
         self.assertEqual(c.response_findings('Status O1015', "I couldn't find it in your account.", missing), [])
         self.assertEqual(c.finalize_v4('Status O1015', 'It should arrive soon.', trace), 'Order O1015: shipped.')
 
+    def test_gemini_raw_turn_preserves_thought_signature(self):
+        raw = {'role':'model','parts':[{'functionCall':{'name':'lookup_order','args':{'order_id':'O1015'}},'thoughtSignature':'synthetic-signature'}]}
+        turns = [{'content':'','tool_calls':[call('lookup_order')],'raw':raw}, {'content':'Delivered.','tool_calls':[],'raw':{}}]
+        with patch('providers.chat', side_effect=turns) as chat:
+            _, _, messages = c.run_task({'fixture':fixture(),'input':'Status O1015'}, 'gemini','unused')
+        self.assertEqual(messages[1]['raw'], raw)
+
     def test_v3_blocks_ineligible_attempt_before_store(self):
         seq = [ {'content':'','tool_calls':[call('lookup_order')]}, {'content':'','tool_calls':[call(amount=4000)]}, {'content':'Refund is not eligible.','tool_calls':[]} ]
         with patch('providers.chat', side_effect=seq):
