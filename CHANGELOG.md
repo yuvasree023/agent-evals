@@ -56,3 +56,13 @@ intervals, finite-n reliability estimates and a deduplicated human review queue.
 Groq execution deferred by the owner. No inferred human labels, validated
 hallucination rate, candidate promotion or holdout gains claimed. Actual Gemini
 results are reported only after retrieving and verifying saved outputs.
+
+
+## 0.7 - Verified Gemini evidence and unmeasured parameter guard
+
+Gemini-only exploratory experiment completed 140 records across v1-v4,
+one trial/task/version; unchanged grader-v2 passes 25/35, 32/35, 31/35, 31/35.
+No candidate promotion or accuracy/holdout claim. Discovered address parameter
+provenance gap in T030; separate unmeasured v5 blocks missing/mismatched address
+parameters and clarifies malformed IDs. Old measured versions stay unchanged.
+79 offline tests pass; scripted tests are not live improvement evidence.
