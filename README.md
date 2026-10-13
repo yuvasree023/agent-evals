@@ -11,6 +11,13 @@ check will use a fresh complete flip run, not combine partial and fresh trials.
 Rounds 2/3 candidates are implemented and tested offline, not promoted or
 measured on a model. Nothing here is a benchmark accuracy claim.
 
+Separate Gemini exploratory run: 140/140 records (one trial for each of 35 dev
+tasks across v1-v4). Grader-v2 diagnostics: 25/35, 32/35, 31/35, 31/35.
+v3/v4 were not promoted. See `docs/gemini-exploratory-results-2026-10-13.md`.
+Zero confirmation/target violations in v2-v4 did not mean zero wrong parameter
+writes: T030 invented/reused an address. Unmeasured v5 adds narrow address
+provenance checks; it does not rewrite measured versions or resolve T020.
+
 ## What was built
 
 - A synthetic environment: six SQLite tools (lookup, refund, cancel, change
@@ -136,7 +143,7 @@ selected trajectory/response patterns. It reports feature slices, matched-task
 deltas, task-bootstrap intervals and reliability only where trial counts allow.
 It refuses mixed model/provider comparisons. Its deduplicated JSONL queue keeps
 human verdicts blank. See `docs/completion-gates.md` for reproduction, proposed
-release gates and work still waiting on evidence. A separate free Gemini run
+release gates and work still waiting on evidence. The completed free Gemini run
 is exploratory; it is not pooled with Groq and uses no judge labels.
 
 ## Layout
