@@ -1,0 +1,372 @@
+{
+  "source": "labels/dev-judged-runs-v2.jsonl",
+  "rows": 30,
+  "selection": "enriched existing v2 traces, not representative",
+  "human_labels": "awaited; not inferred",
+  "diagnostic_rows_by_signal": {
+    "trajectory": 3,
+    "entities": 4,
+    "response_patterns": 7
+  },
+  "cases": [
+    {
+      "case": "V01",
+      "task_id": "T015",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V02",
+      "task_id": "T015",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V03",
+      "task_id": "T015",
+      "trial": 3,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V04",
+      "task_id": "T025",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V05",
+      "task_id": "T025",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V06",
+      "task_id": "T025",
+      "trial": 3,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V07",
+      "task_id": "T035",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V08",
+      "task_id": "T035",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V09",
+      "task_id": "T035",
+      "trial": 3,
+      "signals": {
+        "schema": [],
+        "trajectory": [
+          "attempt:gate_confirmation_missing"
+        ],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V10",
+      "task_id": "T040",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V11",
+      "task_id": "T040",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V12",
+      "task_id": "T040",
+      "trial": 3,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V13",
+      "task_id": "T012",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_answer_id:O1234"
+        ],
+        "response_patterns": [
+          "fabricated_order_id"
+        ]
+      }
+    },
+    {
+      "case": "V14",
+      "task_id": "T022",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_answer_id:O1234"
+        ],
+        "response_patterns": [
+          "fabricated_order_id"
+        ]
+      }
+    },
+    {
+      "case": "V15",
+      "task_id": "T032",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V16",
+      "task_id": "T002",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_answer_id:O1234"
+        ],
+        "response_patterns": [
+          "fabricated_order_id"
+        ]
+      }
+    },
+    {
+      "case": "V17",
+      "task_id": "T002",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V18",
+      "task_id": "T002",
+      "trial": 3,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [
+          "unsupported_answer_id:O1234"
+        ],
+        "response_patterns": [
+          "fabricated_order_id"
+        ]
+      }
+    },
+    {
+      "case": "V19",
+      "task_id": "T010",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": [
+          "unsupported_shipping_claim"
+        ]
+      }
+    },
+    {
+      "case": "V20",
+      "task_id": "T010",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V21",
+      "task_id": "T018",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V22",
+      "task_id": "T018",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V23",
+      "task_id": "T028",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V24",
+      "task_id": "T028",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V25",
+      "task_id": "T016",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V26",
+      "task_id": "T016",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": [
+          "unsupported_shipping_claim"
+        ]
+      }
+    },
+    {
+      "case": "V27",
+      "task_id": "T001",
+      "trial": 2,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": [
+          "unsupported_shipping_claim"
+        ]
+      }
+    },
+    {
+      "case": "V28",
+      "task_id": "T020",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V29",
+      "task_id": "T011",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    },
+    {
+      "case": "V30",
+      "task_id": "T046",
+      "trial": 1,
+      "signals": {
+        "schema": [],
+        "trajectory": [],
+        "entities": [],
+        "response_patterns": []
+      }
+    }
+  ],
+  "caveat": "Flags are review signals, not whole-run verdicts or pass/hallucination rates. Rejected unsafe attempts can be correctly contained by a gate."
+}
