@@ -34,3 +34,14 @@ windowed unconfirmed-write rate with Wilson intervals, consecutive-window alert)
 tests, and two demo outputs. Offline, no model calls. README rewritten to
 describe the M1 -> grader bug -> v2 gate -> judge calibration story and its
 limits. No new agent results: the v2 re-run is pending the Groq daily reset.
+
+
+## 0.5 - Offline rounds 2/3 candidates (2026-10-13)
+
+Preserved measured v1/v2 and grader v2, holdout, labels and frozen judge.
+Added unpromoted v3 eligibility checks based on observed lookup results and
+v4 narrow clarification/response checks. Scripted positive/negative controls
+cover shipped/pending/delivered boundaries, refund ceilings, failed-service
+controls, successful confirmed refunds and selected evidence failures.
+Updated stale README/method status. Offline tests and split/hash validation
+only; no API calls, model improvement deltas, promotion or holdout results.
