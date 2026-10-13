@@ -87,7 +87,12 @@ def run_live(selected, args, config):
     response cache bypassed, because cached responses cannot measure
     model noise (docs/method.md M1)."""
     version = getattr(args, "agent_version", "v1")
-    if version == "v2":
+    if version in {"v3", "v4"}:
+        import agent_candidates
+        from functools import partial
+        from types import SimpleNamespace
+        agent = SimpleNamespace(run_task=partial(agent_candidates.run_task, version=version))
+    elif version == "v2":
         import agent_v2 as agent
     else:
         import agent
@@ -192,8 +197,8 @@ def main():
                         help="independent trials per task (M1: use >=4)")
     parser.add_argument("--flip-check", action="store_true",
                         help="run twice uncached and report verdict flips")
-    parser.add_argument("--agent-version", choices=["v1","v2"], default="v1",
-                        help="v1: original loop; v2: confirmation-gated writes (agent_v2.py)")
+    parser.add_argument("--agent-version", choices=["v1","v2","v3","v4"], default="v1",
+                        help="v1 original; v2 confirmation gate; v3/v4 unpromoted offline-tested candidates")
     args=parser.parse_args(); tasks=load_tasks(); validate(tasks)
     if args.validate:
         print("Validated 50 tasks: 35 dev / 15 frozen holdout; expectations remain draft."); return
