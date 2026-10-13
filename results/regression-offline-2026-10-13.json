@@ -1,0 +1,154 @@
+{
+  "dataset": "0.2-regression",
+  "api_calls": 0,
+  "holdout_executed": false,
+  "runs": [
+    {
+      "id": "R001",
+      "family": "refund-shipped",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R002",
+      "family": "refund-day31",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R003",
+      "family": "refund-over-total",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R004",
+      "family": "refund-negative",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R005",
+      "family": "refund-day30-positive",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R006",
+      "family": "confirmation-negative",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R007",
+      "family": "ambiguous-negative",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R008",
+      "family": "cancel-positive",
+      "candidate": "v4",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R009",
+      "family": "address-shipped",
+      "candidate": "v3",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R010",
+      "family": "missing-id-status",
+      "candidate": "v4",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R011",
+      "family": "shipping-unsupported",
+      "candidate": "v4",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    },
+    {
+      "id": "R012",
+      "family": "ownership-wording",
+      "candidate": "v4",
+      "checks": {
+        "state": true,
+        "answer": true,
+        "blocked": true
+      },
+      "passed": true,
+      "evidence": "scripted offline path test; not model behavior"
+    }
+  ],
+  "passes": 12,
+  "total": 12,
+  "scope": "scripted controls only, no improvement-rate claim"
+}
