@@ -56,6 +56,21 @@ this gate before looking at any release outcomes:
 These thresholds are proposed project release gates, not retroactive evidence
 that a version already passed them. At present, none of v3/v4 is promoted.
 
+## Fresh judge-validation preparation
+
+`fresh_validation.py` validates separate supplied human/judge verdict files
+against exact unique cases and trace SHA-256 fingerprints. It does not call or
+change the frozen judge. Failure is the positive class, with failure TPR, pass
+TNR, precision, Wilson intervals and kappa; undefined classes remain undefined.
+Historical reports used PASS-positive and remain unchanged. `--blank` creates
+fingerprinted empty verdict fields, never labels. Actual fresh validation stays
+blocked on owner labels and independently produced frozen-judge verdicts.
+
+Existing enriched v2 traces were replayed through diagnostics without model
+calls. See `docs/v2-diagnostic-review-2026-10-13.md` for verbatim evidence and
+limitations. A flagged example order ID or a correctly blocked attempted write
+is a human-review question, not an automatically assigned failure.
+
 ## Waiting on human evidence
 
 - V01-V30 labels; do not tune the frozen judge before testing against these.
