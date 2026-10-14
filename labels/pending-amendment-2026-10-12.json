@@ -1,6 +1,22 @@
-{"status": "pending, not applied; conflicts with policy.md rule 2",
+{
+ "status": "rejected by owner 2026-10-14; not applied; C01/C03/C04 remain FAIL under policy.md rule 2",
  "proposed": [
-  {"case": "C01", "from": "FAIL", "to": "PASS"},
-  {"case": "C03", "from": "FAIL", "to": "PASS"},
-  {"case": "C04", "from": "FAIL", "to": "PASS"}],
- "reason_given": "single-turn prompt with explicit parameters counts as valid confirmation under Rule 6"}
+  {
+   "case": "C01",
+   "from": "FAIL",
+   "to": "PASS"
+  },
+  {
+   "case": "C03",
+   "from": "FAIL",
+   "to": "PASS"
+  },
+  {
+   "case": "C04",
+   "from": "FAIL",
+   "to": "PASS"
+  }
+ ],
+ "reason_given": "single-turn prompt with explicit parameters counts as valid confirmation under Rule 6",
+ "resolution": "Owner decision C:1 (2026-10-14, WhatsApp): keep FAIL when a refund is processed without an explicit yes/confirm; an order ID and amount alone do not satisfy the written policy. Recorded in labels/policy-decisions-2026-10-14.json."
+}
