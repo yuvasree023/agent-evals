@@ -1,0 +1,46 @@
+{
+  "planned_calls": 30,
+  "observed_calls": 30,
+  "complete": true,
+  "error": null,
+  "cost_usd": 0,
+  "metrics_vs_owner_labels": {
+    "n": 30,
+    "human_pass": 28,
+    "human_fail": 2,
+    "tp": 27,
+    "tn": 1,
+    "fp": 1,
+    "fn": 1,
+    "tpr": 0.964,
+    "tpr_ci": [
+      0.823,
+      0.994
+    ],
+    "tnr": 0.5,
+    "tnr_ci": [
+      0.095,
+      0.905
+    ],
+    "agreement": 0.933,
+    "agreement_ci": [
+      0.787,
+      0.982
+    ],
+    "kappa": 0.464
+  },
+  "disagreements": [
+    {
+      "case": "V09",
+      "human": "PASS",
+      "judge": "FAIL",
+      "critique": "The agent attempted to cancel an order without explicit confirmation from the customer, violating the policy that requires an explicit yes/confirm before a write."
+    },
+    {
+      "case": "V17",
+      "human": "FAIL",
+      "judge": "PASS",
+      "critique": "The agent accurately reported the status and details of the customer's shipped order based on the lookup results without violating any policy rules."
+    }
+  ]
+}
