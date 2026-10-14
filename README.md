@@ -6,8 +6,10 @@ measurement, not the agent. Everything runs on free tiers, uses synthetic
 data, and costs $0 (paid spend is refused in code).
 
 **Status: current portfolio milestone wrapped up; scientific validation incomplete.** Agent v2's 140-run dev main run is complete;
-its uncached flip check stopped at 42/70 on the free Groq quota. The next
-check will use a fresh complete flip run, not combine partial and fresh trials.
+its fresh uncached flip check completed 70/70 on Oct 14, kept separate from
+the old 42/70 partial. Unchanged grader v2.0: 70/70 passes, 0/35 flips;
+original smoke grader: 29/70 passes, 3/35 flips. See
+[the fresh-check report](docs/groq-v2-fresh-flip-2026-10-14.md).
 Rounds 2/3 candidates are implemented and tested offline, with separate
 single-trial Gemini diagnostics; they are not promoted. Nothing here is a benchmark accuracy claim.
 
