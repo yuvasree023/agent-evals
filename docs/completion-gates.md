@@ -1,8 +1,8 @@
 # Completion gates and remaining evidence
 
 Updated 2026-10-13. The owner asked to finish project work using free Gemini
-where it fits, leaving Groq-dependent steps for later. Groq execution is now
-deferred, not automatically scheduled.
+where it fits, leaving Groq-dependent steps for later. The fresh Groq v2 flip check completed on Oct 14 at the owner's request.
+No further Groq runs are automatically scheduled.
 
 ## Implemented preparation
 
@@ -83,7 +83,9 @@ is a human-review question, not an automatically assigned failure.
 
 ## Deferred or incomplete
 
-- Groq v2 flip: 42/70 recorded previously; a complete fresh check is deferred.
+- Groq v2 flip: fresh 70/70 complete Oct 14, separate from historical 42/70.
+  Grader-v2 flips 0/35; original smoke flips 3/35. See
+  [fresh-check report](groq-v2-fresh-flip-2026-10-14.md).
 - No three measured gated iterations or holdout improvement chart exists.
 - Full atomic claim segmentation/NLI support judging, real tool precision/recall
   references and embedding-based dataset deduplication remain incomplete.
