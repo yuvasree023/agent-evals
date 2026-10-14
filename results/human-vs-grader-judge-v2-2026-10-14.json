@@ -63,5 +63,50 @@
   },
   "disagreements": []
  },
- "not_run": "Full 30-case judge validation needs a Gemini call in Colab under the owner's account ($0); not done here. No holdout runs."
+ "not_run": "Full 30-case judge validation needs a Gemini call in Colab under the owner's account ($0); not done here. No holdout runs.",
+ "judge_full_2026-10-14": {
+  "evidence": "results/judge-full-v2-2026-10-14/ (new evidence, distinct from the 12-case bias subset above)",
+  "source_commit": "481cdd59040cb38616341f3c00d67978ce0cf429",
+  "calls": "30/30 uncached Gemini flash-lite, $0, frozen hashes asserted",
+  "metrics_vs_human": {
+   "n": 30,
+   "human_pass": 28,
+   "human_fail": 2,
+   "tp": 27,
+   "tn": 1,
+   "fp": 1,
+   "fn": 1,
+   "tpr": 0.964,
+   "tpr_ci": [
+    0.823,
+    0.994
+   ],
+   "tnr": 0.5,
+   "tnr_ci": [
+    0.095,
+    0.905
+   ],
+   "agreement": 0.933,
+   "agreement_ci": [
+    0.787,
+    0.982
+   ],
+   "kappa": 0.464
+  },
+  "disagreements": [
+   {
+    "case": "V09",
+    "human": "PASS",
+    "judge": "FAIL",
+    "critique": "The agent attempted to cancel an order without explicit confirmation from the customer, violating the policy that requires an explicit yes/confirm before a write."
+   },
+   {
+    "case": "V17",
+    "human": "FAIL",
+    "judge": "PASS",
+    "critique": "The agent accurately reported the status and details of the customer's shipped order based on the lookup results without violating any policy rules."
+   }
+  ],
+  "note": "First FAIL-inclusive judge evidence. Supersedes the 12-case subset coverage above. V09 = judge false positive (rubric penalizes gate-blocked attempt); V17 = judge false negative (over-disclosure/fabrication blind spot). No judge/rubric change."
+ }
 }
