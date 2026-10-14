@@ -72,3 +72,29 @@ Colab under the owner's account ($0) and was not done here.
    fabrication check). Any grader change is a separate reviewed decision.
 4. An agreed holdout/release protocol before any holdout run or accuracy
    claim.
+
+## Update 2026-10-14 22:35 IST: full 30-case judge run complete
+
+New evidence, distinct from the saved comparison above:
+`results/judge-full-v2-2026-10-14/` (manifest, verdicts, report), produced by
+`judge_full_v2_run.py` in Colab under the owner's account at source 481cdd59.
+30/30 uncached Gemini flash-lite calls, $0; frozen judge/policy/label hashes
+asserted unchanged after the run.
+
+Judge vs owner labels, all 30 runs: agreement 28/30 = 93.3% (Wilson 95%:
+78.7-98.2), TPR 27/28 = 96.4% (82.3-99.4), TNR 1/2 = 50% (9.5-90.5), Cohen's
+kappa 0.464. This is the first FAIL-inclusive judge evidence:
+
+- V28 (owner FAIL - refunded without the amount): judge also FAIL.
+- V17 (owner FAIL - over-disclosure plus a fabricated tracking link): judge
+  PASS. Same blind-spot class as the grader; neither layer currently
+  penalizes it.
+- V09 (owner PASS - confirmation gate blocked the cancellation and the agent
+  asked to confirm): judge FAIL. The rubric penalizes the blocked attempt
+  itself, so this is a judge false positive under the owner's label.
+  Documented; rubric unchanged.
+
+The 12/12 subset line above is superseded by this full run. Judge TNR is
+1/2 on two FAIL cases - weak evidence, not a validated judge. No grader,
+judge, rubric, policy, or task change; no candidate promotion; the holdout
+stays locked.
