@@ -37,8 +37,9 @@ open. No human labels, frozen judge, policy or candidate promotion changed.
   It contains exact traces, checkpoint, original smoke report and manifest.
   Decode with `python3 -m base64 -d archive.base64 > fresh-results.zip`.
   Verify the ZIP SHA-256 against `manifest.json` before extraction.
-- `rescore-v2.json` stores per-run checks for historical main and fresh flip,
-  keeping the two experiments separate. Reproduce with `rescore.py` using
+- `rescore-v2.json` stores fresh flip per-run checks plus the historical main
+  summary and a reference to its original per-run score file, keeping the
+  two experiments separate. Reproduce with `rescore.py` using
   the actual historical main trace plus the new flip trace, never reconstructed
   score-only records. Keys are absent from all files.
 
