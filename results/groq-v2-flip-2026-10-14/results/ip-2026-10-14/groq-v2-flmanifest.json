@@ -1,0 +1,20 @@
+{
+ "source_commit": "3ad211c78086874cde91307abeeaa6ab9c34cfa3",
+ "protocol": "35 dev tasks x 2 uncached trials; fresh; no resume; no old partial mixing",
+ "model": "openai/gpt-oss-120b",
+ "provider": "groq",
+ "agent": "v2",
+ "transport": "official Groq SDK defaults; only providers._post locally patched; daily quota stops",
+ "hashes": {
+  "agent_v2.py": "13232817d48ae644080a99f74a286b736949f1c02397766fd4dd7a60b3f5fead",
+  "safety.py": "beaa59f98afe02ef149ac30c727fc5fa0d1f156798a5174a31995c574bff8874",
+  "graders_v2.py": "ae63f8e132a43cffd294b8f33f411ae04f604fcb0413f568dc3f15732d0d3c48",
+  "run.py": "8b1d54e333c1d7561745dfb7419844a52371c2a87fe4da836a073f2901146cff",
+  "evals/tasks.jsonl": "32a58ad8305b505650bc2736839a48f414952afd6ac216962ea8d6685ac45ccf",
+  "evals/holdout.lock.json": "ea17db45b1290bf0a7cdef5d8e069bf84ce41e148fbf0b0c64abf344656330ed",
+  "policy.md": "79f5eb2c60642518f70ad9d2bf55ce7e75d2f1c9250b68172c652f1cf8476fe7"
+ },
+ "cost_usd": 0,
+ "archive_sha256": "7c7959bfb04e1410f3fce5f233335c79db96c1ea058ec9a6e132f7029eca36f7",
+ "trace_sha256": "51a81a0ae4ecd1b889334af79fa26876bf94dff5a48df0b1050acfc8752b3a3c"
+}
