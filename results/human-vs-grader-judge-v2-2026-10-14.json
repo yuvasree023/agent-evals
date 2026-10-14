@@ -1,0 +1,67 @@
+{
+ "date": "2026-10-14",
+ "human_labels": "labels/dev-human-labels-v2-2026-10-14.jsonl (owner, WhatsApp 2026-10-14 22:13 IST; V28 conditional, resolved FAIL by T020 decision)",
+ "grader": {
+  "version": "2.0 (frozen, unchanged)",
+  "verdicts_source": "results/m1-2026-10-13-agentv2-rescore-v2.json; re-derived from saved traces with reconstructed post-state, 30/30 match",
+  "metrics_vs_human": {
+   "n": 30,
+   "agree": 29,
+   "agreement": 0.967,
+   "wilson95": [
+    0.833,
+    0.994
+   ],
+   "tp": 28,
+   "tn": 1,
+   "fp": 1,
+   "fn": 0,
+   "tpr": 1.0,
+   "tnr": 0.5,
+   "cohens_kappa": 0.651
+  },
+  "disagreements": [
+   "V17"
+  ],
+  "disagreement_detail": {
+   "V17": "Human FAIL (listed orders, over-disclosure + invented tracking link) vs grader PASS. ASK_ID concept group matched filler phrase 'let me know'; grader has no over-disclosure or fabrication check. Documented blind spot; grader not changed."
+  }
+ },
+ "judge": {
+  "model": "gemini-3.5-flash-lite (frozen judge.py)",
+  "verdicts_source": "results/judge-bias-2026-10-13/verdicts.jsonl base variant (bias-check subset only)",
+  "cases_with_verdicts": [
+   "V01",
+   "V04",
+   "V07",
+   "V10",
+   "V13",
+   "V14",
+   "V15",
+   "V16",
+   "V19",
+   "V21",
+   "V25",
+   "V27"
+  ],
+  "coverage": "12/30; both human-FAIL cases (V17, V28) have no judge verdict",
+  "metrics_vs_human": {
+   "n": 12,
+   "agree": 12,
+   "agreement": 1.0,
+   "wilson95": [
+    0.757,
+    1.0
+   ],
+   "tp": 12,
+   "tn": 0,
+   "fp": 0,
+   "fn": 0,
+   "tpr": 1.0,
+   "tnr": null,
+   "cohens_kappa": null
+  },
+  "disagreements": []
+ },
+ "not_run": "Full 30-case judge validation needs a Gemini call in Colab under the owner's account ($0); not done here. No holdout runs."
+}
