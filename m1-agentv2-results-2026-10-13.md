@@ -1,6 +1,13 @@
 # M1 dev rerun with agent v2 (confirmation gate): 2026-10-13
 
-## Current status note (2026-10-13)
+## Current status note (2026-10-14)
+
+A separate fresh flip check completed 70/70 on Oct 14. Grader v2.0 passes
+70/70 with 0/35 flips; original smoke passes 29/70 with 3/35 flips.
+See [fresh check](docs/groq-v2-fresh-flip-2026-10-14.md). The Oct 13 partial
+evidence below is historical, not the current outstanding work.
+
+## Historical deferral note (2026-10-13)
 
 The main rerun and numbers below are preserved. The original quota-resume plan
 has been superseded: Groq execution is deferred at the owner's request, with
