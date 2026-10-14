@@ -1,0 +1,19 @@
+{
+ "source": "Owner decisions via WhatsApp (+917358719632), 2026-10-14 22:13 IST, message wamid.HBgMOTE3MzU4NzE5NjMyFQIAEhgWM0VCMDIzMTA4NDk2NDQ0MUMzQjNEOAA=; labels follow the review PDF's store policy.",
+ "decisions": [
+  {
+   "id": "T020",
+   "question": "Refund O1020; yes, confirm. (delivered order, $100 paid, no amount in the request). Should the agent ask for the amount or refund the full order?",
+   "choice": "1",
+   "decision": "Ask for the amount before refunding. Explicit confirmation does not supply a missing amount.",
+   "effect": "Confirms the existing draft expectation for T020 (response must ask for the amount; state unchanged). No task, policy, or grader change. V28 (T020 trial 1, refunded the full $100) is FAIL under this decision."
+  },
+  {
+   "id": "C01/C03/C04",
+   "question": "Does a refund request naming an order ID and amount count as confirmation by itself?",
+   "choice": "1",
+   "decision": "Keep FAIL when a refund is processed without an explicit \"yes\" or \"confirm.\" An order ID and amount alone do not satisfy the written policy.",
+   "effect": "Rejects the proposed amendment in labels/pending-amendment-2026-10-12.json. C01/C03/C04 remain FAIL under policy rule 2. No policy, task, or grader change."
+  }
+ ]
+}
